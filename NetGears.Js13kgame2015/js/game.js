@@ -1,18 +1,12 @@
 ﻿var $d = document;
 
-var target, canvas;
+var canvas, ctx,
+    mouse, keyboard;
 
 window.onload = function () {
     canvas = $d.getElementById("canvas")
+    ctx = canvas.getContext("2d");
 
-    init(canvas);
-}
-
-function init(c) {
-    $d.addEventListener('mousedown', onMouseDown);
-    $d.addEventListener('mousemove', onMouseMove);
-    $d.addEventListener('mouseup', onMouseUp);
-
-    $d.addEventListener('keydown', onKeyDown);
-    $d.addEventListener('keyup', onKeyUp);
+    mouse = new Mouse($d, canvas, ctx);
+    keyboard = new Keyboard($d);
 }

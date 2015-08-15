@@ -1,19 +1,31 @@
-﻿var keys = {
-    down: {},
-    isPressed: {}
-}
+﻿
+//d - document
+function Keyboard(d) {
+    //private variable
+    var _this = this;
 
-function onKeyUp(e) {
-    console.log("e.keyup");
-
-    keys.down[e.keyCode] = false;
-    keys.isPressed[e.keyCode] = false;
-}
-function onKeyDown(e) {
-    console.log("e.keydown");
-
-    if (!keys.down[e.keyCode]) {
-        keys.down[e.keyCode] = true;
-        keys.isPressed[e.keyCode] = true;
+    //keys state
+    this.keys = {
+        isPressed: {}
     }
+
+    //event handlers
+    //e - event
+    this.onKeyDown = function (e) {
+        if (!_this.keys.isPressed[e.keyCode]) {
+            _this.keys.isPressed[e.keyCode] = true;
+            //TODO
+
+        }
+    }
+    //e - event
+    this.onKeyUp = function (e) {
+        _this.keys.isPressed[e.keyCode] = false;
+        //TODO
+
+    }
+
+    //listeners initialization
+    d.addEventListener('keydown', _this.onKeyDown);
+    d.addEventListener('keyup', _this.onKeyUp);
 }
