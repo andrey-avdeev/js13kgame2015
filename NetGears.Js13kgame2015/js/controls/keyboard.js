@@ -17,7 +17,7 @@ function Keyboard(d) {
 
             switch (e.keyCode) {
                 case 82:
-                    d.dispatchEvent(events.gravityReverse);
+                    d.dispatchEvent(events.gravityReverse());
                     break;
             }
         }
@@ -27,7 +27,7 @@ function Keyboard(d) {
         _this.keys.isPressed[e.keyCode] = false;
         switch (e.keyCode) {
             case 82:
-                d.dispatchEvent(events.gravityReverse);
+                d.dispatchEvent(events.gravityReverse());
                 break;
         }
     }

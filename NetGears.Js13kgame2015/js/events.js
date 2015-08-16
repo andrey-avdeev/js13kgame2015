@@ -1,26 +1,41 @@
 ﻿
 //m - mouse
 function Events(m) {
-    this.gravityReverse = new CustomEvent("gravityReverse");
-    this.laserbeamShot = new CustomEvent("laserbeamShot", {
-        detail: {
-            target: mouse.position
-        },
-        bubbles: true,
-        cancelable: false
-    });
-    this.laserbeamBlow = new CustomEvent("laserbeamBlow", {
-        detail: {
+    //
+    this.gravityReverse = function () {
+        return new CustomEvent("gravityReverse");
+    };
 
-        },
-        bubbles: true,
-        cancelable: false
-    })
+    //
+    this.laserbeamBlow = function () {
+        return new CustomEvent("laserbeamBlow", {
+            detail: {
 
-    this.playerBlow = new CustomEvent("playerBlow");
-    //this.laserbeamCreate = new CustomEvent("laserbeamCreate", {
-    //    detail: {
+            },
+            bubbles: true,
+            cancelable: false
+        });
+    };
 
-    //    }
-    //})
+    //p - mouse current position
+    this.playerShot = function (p) {
+        return new CustomEvent("playerShot", {
+            detail: {
+                target: p
+            },
+            bubbles: true,
+            cancelable: false
+        });
+    };
+
+    //
+    this.playerBlow = function () {
+        return new CustomEvent("playerBlow", {
+            detail: {
+
+            },
+            bubbles: true,
+            cancelable: false
+        });
+    };
 }

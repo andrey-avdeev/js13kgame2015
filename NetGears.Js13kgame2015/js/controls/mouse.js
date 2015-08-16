@@ -19,7 +19,7 @@ function Mouse(d, c, ctx) {
         if (!_this.isDown) {
             _this.isDown = true;
 
-            d.dispatchEvent(events.laserbeamShot);
+            d.dispatchEvent(events.laserbeamShot(_this.position));
         }
     }
     //e - event
