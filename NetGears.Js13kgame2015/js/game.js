@@ -1,12 +1,38 @@
-﻿var $d = document;
+﻿
+//p - physics, c - canvas, ctx - context
+function Game(p, c, ctx) {
+    var now,
+        dt = 0,
+        last = timeStamp(),
+        step = 1 / 60;
 
-var canvas, ctx,
-    mouse, keyboard;
+    function frame() {
+        now = timeStamp();
+        dt = dt + Math.min(1, (now - last) / 1000);    // duration in seconds
+        while (dt > step) {
+            dt = dt - step;
+            update();
+        }
+        render();
 
-window.onload = function () {
-    canvas = $d.getElementById("canvas")
-    ctx = canvas.getContext("2d");
+        last = now;
+        requestAnimationFrame(frame);
+    }
 
-    mouse = new Mouse($d, canvas, ctx);
-    keyboard = new Keyboard($d);
+    function timeStamp() {
+        return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
+    }
+
+    function update() {
+        player.position.plus(p.gravity);
+    }
+    function render() {
+        ctx.save();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgb(0,200,0)";
+        ctx.fillRect(player.position.x, player.position.y, 10, 10);
+        ctx.restore();
+    }
+
+    requestAnimationFrame(frame);
 }

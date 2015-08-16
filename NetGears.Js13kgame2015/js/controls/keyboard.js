@@ -1,5 +1,5 @@
 ﻿
-//d - document
+//d - document, (global variable) events - customevents
 function Keyboard(d) {
     //private variable
     var _this = this;
@@ -14,15 +14,22 @@ function Keyboard(d) {
     this.onKeyDown = function (e) {
         if (!_this.keys.isPressed[e.keyCode]) {
             _this.keys.isPressed[e.keyCode] = true;
-            //TODO
 
+            switch (e.keyCode) {
+                case 82:
+                    d.dispatchEvent(events.gravityReverse);
+                    break;
+            }
         }
     }
     //e - event
     this.onKeyUp = function (e) {
         _this.keys.isPressed[e.keyCode] = false;
-        //TODO
-
+        switch (e.keyCode) {
+            case 82:
+                d.dispatchEvent(events.gravityReverse);
+                break;
+        }
     }
 
     //listeners initialization
