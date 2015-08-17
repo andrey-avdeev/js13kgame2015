@@ -16,15 +16,23 @@ function Player(d) {
     //player mass
     this.mass = 1;
 
+    this.update = function (dt, g) {
+        _this.position.plus(g);
+    };
+
+    this.draw = function (canvas, ctx) {
+
+    };
+
     //event handlers
     //e - event
     this.shoot = function (e) {
-        console.log("Bang!");
-    }
+
+    };
     //e - event
     this.explode = function (e) {
         _this.isExploded = true;
-    }
+    };
 
     //listeners initialization
     d.addEventListener('playerShoot', _this.shoot);

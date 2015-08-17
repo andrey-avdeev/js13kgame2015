@@ -28,3 +28,11 @@ function LaserBeam(d) {
 LaserBeam.prototype.explode = function (e) {
     this.isExploded = true;
 }
+
+LaserBeam.prototype.update = function (dt) {
+
+}
+
+LaserBeam.prototype.draw = function (canvas, ctx) {
+
+}

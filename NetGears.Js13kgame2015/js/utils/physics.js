@@ -5,7 +5,7 @@ function Physics(d) {
     var _this = this;
 
     //game world gravity
-    this.gravity = new Vec2(0, 1);
+    this.gravity = new Vec2(0, 3);
 
     //event handlers
     //e - event

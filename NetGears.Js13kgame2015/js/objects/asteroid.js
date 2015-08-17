@@ -25,3 +25,11 @@ function Asteroid(d) {
 Asteroid.prototype.explode = function (e) {
     this.isExploded = true;
 }
+
+Asteroid.prototype.update = function (dt) {
+    //this.position=(p.gravity.scale(dt*dt/2))
+}
+
+Asteroid.prototype.draw = function (canvas, ctx) {
+
+}
