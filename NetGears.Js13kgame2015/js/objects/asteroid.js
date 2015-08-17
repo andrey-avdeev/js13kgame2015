@@ -5,7 +5,7 @@ function Asteroid(d) {
     var _this = this;
 
     //flag for removing dead object
-    this.isBlown = false;
+    this.isExploded = false;
 
     //canvas asteroid position
     this.position = new Vec2(0, 0);
@@ -19,9 +19,9 @@ function Asteroid(d) {
     //event handlers
 
     //listeners initialization
-    d.addEventListener('asteroidBlow', _this.blow);
+    d.addEventListener('asteroidExplode', _this.explode);
 }
 
-Asteroid.prototype.blow = function (e) {
-    this.isBlown = true;
+Asteroid.prototype.explode = function (e) {
+    this.isExploded = true;
 }

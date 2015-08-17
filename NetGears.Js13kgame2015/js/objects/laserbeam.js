@@ -5,7 +5,7 @@ function LaserBeam(d) {
     var _this = this;
 
     //flag for removing dead object
-    this.isBlown = false;
+    this.isExploded = false;
 
     //canvas asteroid position
     this.position = new Vec2(0, 0);
@@ -22,9 +22,9 @@ function LaserBeam(d) {
     //event handlers
 
     //listeners initialization
-    d.addEventListener('laserbeamBlow', _this.blow);
+    d.addEventListener('laserbeamExplode', _this.explode);
 }
 
-LaserBeam.prototype.blow = function (e) {
-    this.isBlown = true;
+LaserBeam.prototype.explode = function (e) {
+    this.isExploded = true;
 }

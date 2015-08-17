@@ -21,7 +21,7 @@
     <Content Include="index.html" />
     <Content Include="js\app.js" />
     <Content Include="js\controls\keyboard.js" />
-    <Content Include="js\events.js" />
+    <Content Include="js\utils\events.js" />
     <Content Include="js\game.js" />
     <Content Include="js\objects\asteroid.js" />
     <Content Include="js\objects\laserbeam.js" />

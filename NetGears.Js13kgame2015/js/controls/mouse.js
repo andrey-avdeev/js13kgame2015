@@ -1,6 +1,6 @@
 ﻿
-//d - document, c - canvas, ctx - context, (global variable) events - custom events
-function Mouse(d, c, ctx) {
+//d - document, c - canvas, ctx - context, ev - custom events
+function Mouse(d, c, ctx, ev) {
     //private variable
     var _this = this;
 
@@ -19,7 +19,7 @@ function Mouse(d, c, ctx) {
         if (!_this.isDown) {
             _this.isDown = true;
 
-            d.dispatchEvent(events.laserbeamShot(_this.position));
+            d.dispatchEvent(ev.playerShoot());
         }
     }
     //e - event

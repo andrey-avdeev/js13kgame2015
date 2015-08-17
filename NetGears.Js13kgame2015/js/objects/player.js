@@ -5,7 +5,7 @@ function Player(d) {
     var _this = this;
 
     //flag for removing dead object
-    this.isBlown = false;
+    this.isExploded = false;
 
     //canvas player position
     this.position = new Vec2(0, 0);
@@ -18,17 +18,15 @@ function Player(d) {
 
     //event handlers
     //e - event
-    this.shot = function (e) {
-        console.log(e.detail.target);
-        _this.position.set(e.detail.target.x, e.detail.target.y);
-        console.log(_this.position);
+    this.shoot = function (e) {
+        console.log("Bang!");
     }
     //e - event
-    this.blow = function (e) {
-        _this.isBlown = true;
+    this.explode = function (e) {
+        _this.isExploded = true;
     }
 
     //listeners initialization
-    d.addEventListener('laserbeamShot', _this.shot);
-    d.addEventListener('playerBlow', _this.blow);
+    d.addEventListener('playerShoot', _this.shoot);
+    d.addEventListener('playerExplode', _this.explode);
 }

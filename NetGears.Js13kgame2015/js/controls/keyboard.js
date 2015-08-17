@@ -1,6 +1,6 @@
 ﻿
-//d - document, (global variable) events - customevents
-function Keyboard(d) {
+//d - document, ev - customevents
+function Keyboard(d, ev) {
     //private variable
     var _this = this;
 
@@ -17,7 +17,7 @@ function Keyboard(d) {
 
             switch (e.keyCode) {
                 case 82:
-                    d.dispatchEvent(events.gravityReverse());
+                    d.dispatchEvent(ev.gravityReverse());
                     break;
             }
         }
@@ -27,7 +27,7 @@ function Keyboard(d) {
         _this.keys.isPressed[e.keyCode] = false;
         switch (e.keyCode) {
             case 82:
-                d.dispatchEvent(events.gravityReverse());
+                d.dispatchEvent(ev.gravityReverse());
                 break;
         }
     }

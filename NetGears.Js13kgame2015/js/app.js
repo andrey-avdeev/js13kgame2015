@@ -2,11 +2,11 @@
 var $d = document;
 
 var canvas, ctx,
+    events,
     mouse, keyboard,
     physics,
     player,
     asteroids, laserbeams,
-    events,
     game;
 
 window.onload = function () {
@@ -14,9 +14,12 @@ window.onload = function () {
     canvas = $d.getElementById("canvas")
     ctx = canvas.getContext("2d");
 
+    //custom events initialization
+    events = new Events();
+
     //controls initialization
-    mouse = new Mouse($d, canvas, ctx);
-    keyboard = new Keyboard($d);
+    mouse = new Mouse($d, canvas, ctx, events);
+    keyboard = new Keyboard($d, events);
 
     //physics initialization
     physics = new Physics($d);
@@ -26,9 +29,6 @@ window.onload = function () {
 
     asteroids = new Array();
     laserbeams = new Array();
-
-    //custom events initialization
-    events = new Events(mouse);
 
     //game looper e.t.c
     game = new Game(physics, canvas, ctx);
