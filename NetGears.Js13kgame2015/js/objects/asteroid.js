@@ -16,6 +16,9 @@ function Asteroid(d) {
     //asteroid mass
     this.mass = 3;
 
+    this.type = "circle";
+    this.radius = 10;
+
     //event handlers
 
     //listeners initialization
@@ -31,5 +34,11 @@ Asteroid.prototype.update = function (dt) {
 }
 
 Asteroid.prototype.draw = function (canvas, ctx) {
-
+    ctx.beginPath();
+    ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'green';
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#003300';
+    ctx.stroke();
 }
