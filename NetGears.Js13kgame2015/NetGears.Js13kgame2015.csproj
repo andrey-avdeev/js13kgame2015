@@ -30,6 +30,7 @@
     <Content Include="js\objects\asteroid.js" />
     <Content Include="js\objects\laserbeam.js" />
     <Content Include="js\objects\player.js" />
+    <Content Include="js\utils\generator.js" />
     <Content Include="js\utils\geometry.js" />
     <Content Include="js\controls\mouse.js" />
     <Content Include="js\utils\graphic.js" />
