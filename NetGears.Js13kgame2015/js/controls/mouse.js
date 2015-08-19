@@ -1,13 +1,10 @@
 ﻿
 //d - document, c - canvas, ctx - context, ev - custom events
 function Mouse(d, c, ctx, ev) {
-    //private variable
     var _this = this;
 
-    //canvas mouse position
     this.position = new Vec2(0, 0);
 
-    //left button isPressed flag
     this.isDown = false;
 
     //private canvas bounding rectangle
@@ -26,13 +23,11 @@ function Mouse(d, c, ctx, ev) {
     this.onMouseMove = function (e) {
         _this.refreshPosition(e, r);
         //TODO
-
     }
     //e - event
     this.onMouseUp = function (e) {
         _this.isDown = false;
         //TODO
-
     }
 
     //refresh current canvas mouse position

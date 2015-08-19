@@ -1,26 +1,19 @@
-﻿
-//d - document, pos - initial position
-function Explosion(d, pos) {
-    //private variable
+﻿function Explosion(x, y) {
     var _this = this;
 
-    //flag for removing finished animation
-    this.isFinished = false;
+    //parameters
+    this.position = new Vec2(x, y);
 
-    //canvas explosion position
-    this.position = new Vec2(0, 0);
+    this.width = 5;
+    this.height = 5;
+
+    this.isActive = true;
 }
 
-Explosion.prototype.update = function (dt, p) {
-
+Explosion.prototype.update = function (dt) {
+    //TODO
 }
-
-Explosion.prototype.draw = function (c, ctx) {
-    ctx.beginPath();
-    ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'red';
-    ctx.fill();
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = '#003300';
-    ctx.stroke();
+Explosion.prototype.draw = function (ctx) {
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 }

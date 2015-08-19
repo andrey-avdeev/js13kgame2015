@@ -1,19 +1,19 @@
-﻿
-//
-function Star() {
-    //private variable
+﻿function Star(x, y, vx, vy) {
     var _this = this;
 
-    //canvas star position
-    this.position = new Vec2(pos.x, pos.y);
+    this.position = new Vec2(x, y);
+    this.velosity = new Vec2(vx, vy);
 
-    //canvas star velosity
-    this.velosity = new Vec2(10, 0);
+    this.width = 2;
+    this.height = 2;
+
+    this.isActive = true;
 }
 
 Star.prototype.update = function (dt) {
-
+    //TODO
 }
-Star.prototype.draw = function (c, ctx) {
-
+Star.prototype.draw = function (ctx) {
+    ctx.fillStyle = "black";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 }

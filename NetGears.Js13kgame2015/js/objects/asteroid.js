@@ -1,39 +1,26 @@
-﻿
-//d - document
-function Asteroid(d) {
-    //private variable
+﻿function Asteroid(x, y, vx, vy, m) {
     var _this = this;
 
-    //flag for removing dead object
-    this.isExploded = false;
+    //parameters
+    this.position = new Vec2(x, y);
+    this.velosity = new Vec2(vx, vy);
+    this.mass = m;
 
-    //canvas asteroid position
-    this.position = new Vec2(0, 0);
-
-    //canvas asteroid velocity
-    this.velocity = new Vec2(0, 0);
-
-    //asteroid mass
-    this.mass = 3;
-
-    this.type = "circle";
     this.radius = 10;
 
-    //event handlers
+    this.collisionType = "circle";
+    this.collisionRadius = 10;
+
+    this.isActive = true;
 
     //listeners initialization
-    d.addEventListener('asteroidExplode', _this.explode);
-}
-
-Asteroid.prototype.explode = function (e) {
-    this.isExploded = true;
+    //canvas.addEventListener('asteroidExplode', this.explode);
 }
 
 Asteroid.prototype.update = function (dt) {
-    //this.position=(p.gravity.scale(dt*dt/2))
+    //TODO
 }
-
-Asteroid.prototype.draw = function (canvas, ctx) {
+Asteroid.prototype.draw = function (ctx) {
     ctx.beginPath();
     ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
     ctx.fillStyle = 'green';
@@ -41,4 +28,8 @@ Asteroid.prototype.draw = function (canvas, ctx) {
     ctx.lineWidth = 5;
     ctx.strokeStyle = '#003300';
     ctx.stroke();
+}
+
+Asteroid.prototype.explode = function (e) {
+    this.isActive = false;
 }
