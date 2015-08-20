@@ -14,7 +14,7 @@
     this.isActive = true;
 }
 
-Asteroid.prototype.update = function (dt,p) {
+Asteroid.prototype.update = function (dt, p) {
     //TODO
 }
 Asteroid.prototype.draw = function (ctx) {

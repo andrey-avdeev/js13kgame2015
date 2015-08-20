@@ -24,7 +24,7 @@
     var walls = new Array();
 
     //game looper e.t.c
-    var game = new Game($d, canvas, ctx, physics, asteroids, explosions, laserbeams, player, stars, walls);
+    var game = new Game($d, canvas, ctx, physics, gui, asteroids, explosions, laserbeams, player, stars, walls);
 
     function addAsteroid(e) {
         asteroids.push(new Asteroid());

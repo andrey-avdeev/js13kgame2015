@@ -11,7 +11,7 @@
     this.isActive = true;
 }
 
-Star.prototype.update = function (dt,p) {
+Star.prototype.update = function (dt, p) {
     //TODO
 }
 Star.prototype.draw = function (ctx) {

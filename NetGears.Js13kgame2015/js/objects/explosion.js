@@ -10,7 +10,7 @@
     this.isActive = true;
 }
 
-Explosion.prototype.update = function (dt,p) {
+Explosion.prototype.update = function (dt, p) {
     //TODO
 }
 Explosion.prototype.draw = function (ctx) {

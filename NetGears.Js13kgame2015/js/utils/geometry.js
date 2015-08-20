@@ -19,6 +19,6 @@ Vec2.prototype.scale = function (k) {
     this.x *= k;
     this.y *= k;
 }
-Vec2.prototype.distance = function (a, b) {
-    return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+Vec2.prototype.distance = function (v) {
+    return Math.sqrt((this.x - v.x) * (this.x - v.x) + (this.y - v.y) * (this.y - v.y));
 }

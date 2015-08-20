@@ -1,4 +1,4 @@
-﻿function Game(d, c, ctx, p, asteroids, explosions, laserbeams, player, stars, walls) {
+﻿function Game(d, c, ctx, p, gui, asteroids, explosions, laserbeams, player, stars, walls) {
     var now,
         dt = 0,
         last = timeStamp(),
@@ -22,6 +22,12 @@
     };
 
     function update(dt) {
+        checkCollision(player, walls);
+        checkCollision(player, asteroids);
+
+        checkCollisions(walls, asteroids);
+        checkCollisions(laserbeams, asteroids);
+
         if (player != null && player.isActive) player.update(dt, p);
 
         if (asteroids.length > 0) {
@@ -103,10 +109,14 @@
                 wall.draw(ctx);
             });
         }
+        if (gui != null) gui.draw(ctx);
 
         //restoring context
         ctx.restore();
     };
+    function drawArray(array) {
+
+    }
 
     requestAnimationFrame(frame);
 }
