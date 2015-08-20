@@ -1,4 +1,4 @@
-﻿function GUI(d) {
+﻿function GUI(d, ev) {
     var _this = this;
 
     //parameters

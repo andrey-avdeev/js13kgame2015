@@ -4,20 +4,21 @@
     //parameters
     this.gravity = new Vec2(0, 9.8);
 
-    //TODO - separate gravity with friction
+    //gravity impact on position and velocity
     //v - velocity of object, m - mass of object
-    this.positionImpact = function (dt, m, velocity) {
-        var g = _this.gravity;
-        var v = velocity;
+    //this.positionImpact = function (dt, m, velocity) {
+    //    var g = _this.gravity;
+    //    var v = velocity;
 
-        return new Vec2(((g.x * dt * dt) / (2 * m)) + v.x * dt, ((g.y * dt * dt) / (2 * m)) + v.y * dt);
-    }
-    this.velocityImpact = function (dt, m) {
-        var g = _this.gravity;
+    //    return new Vec2(((g.x * dt * dt) / (2 * m)) + v.x * dt, ((g.y * dt * dt) / (2 * m)) + v.y * dt);
+    //}
+    //this.velocityImpact = function (dt, m) {
+    //    var g = _this.gravity;
 
-        return new Vec2(g.x * dt / m, g.y * dt / m);
-    }
+    //    return new Vec2(g.x * dt / m, g.y * dt / m);
+    //}
 
+    //collision checking
     this.CircleCircleColliding = function (circle1, circle2) {
         if (circle1.position.distance(circle2.position) < circle1.radius + circle2.radius) {
             return true;
@@ -39,7 +40,7 @@
         var dy = distY - rectangle.height / 2;
         return (dx * dx + dy * dy <= (circle.radius * circle.radius));
     }
-    this.collisionRectangleRectangle = function (rectangle1, rectangle2) {
+    this.RectangleRectangleColliding = function (rectangle1, rectangle2) {
         if (rectangle1.position.x < rectangle2.position.x + rectangle2.width &&
             rectangle1.position.x + rectangle1.width > rectangle2.position.x &&
             rectangle1.position.y < rectangle2.position.y + rectangle2.height &&

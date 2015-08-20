@@ -1,5 +1,5 @@
 ﻿function Keyboard(d, ev) {
-    var _this = this;
+    var _t = this;
 
     //parameters
     this.keys = {
@@ -8,8 +8,8 @@
 
     //event handlers
     this.onKeyDown = function (e) {
-        if (!_this.keys.isPressed[e.keyCode]) {
-            _this.keys.isPressed[e.keyCode] = true;
+        if (!_t.keys.isPressed[e.keyCode]) {
+            _t.keys.isPressed[e.keyCode] = true;
 
             switch (e.keyCode) {
                 case 82:
@@ -19,7 +19,7 @@
         }
     }
     this.onKeyUp = function (e) {
-        _this.keys.isPressed[e.keyCode] = false;
+        _t.keys.isPressed[e.keyCode] = false;
         switch (e.keyCode) {
             case 82:
                 d.dispatchEvent(ev.gravityReverse());
@@ -28,6 +28,6 @@
     }
 
     //listeners initialization
-    d.addEventListener('keydown', this.onKeyDown);
-    d.addEventListener('keyup', this.onKeyUp);
+    d.addEventListener('keydown', _t.onKeyDown);
+    d.addEventListener('keyup', _t.onKeyUp);
 }
