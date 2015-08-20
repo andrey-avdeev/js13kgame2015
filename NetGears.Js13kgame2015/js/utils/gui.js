@@ -1,6 +1,4 @@
-﻿
-//
-function GUI(d) {
+﻿function GUI(d) {
 
     ////listeners initialization
     //d.addEventListener('gravityReverse',);

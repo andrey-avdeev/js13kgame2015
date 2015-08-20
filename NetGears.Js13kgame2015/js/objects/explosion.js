@@ -1,16 +1,16 @@
-﻿function Explosion(x, y) {
+﻿function Explosion(p, w, h) {
     var _this = this;
 
     //parameters
-    this.position = new Vec2(x, y);
+    this.position = p;
 
-    this.width = 5;
-    this.height = 5;
+    this.width = w;
+    this.height = h;
 
     this.isActive = true;
 }
 
-Explosion.prototype.update = function (dt) {
+Explosion.prototype.update = function (dt,p) {
     //TODO
 }
 Explosion.prototype.draw = function (ctx) {

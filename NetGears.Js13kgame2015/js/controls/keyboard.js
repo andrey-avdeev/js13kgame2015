@@ -1,16 +1,12 @@
-﻿
-//d - document, ev - customevents
-function Keyboard(d, ev) {
-    //private variable
+﻿function Keyboard(d, ev) {
     var _this = this;
 
-    //keys state
+    //parameters
     this.keys = {
         isPressed: {}
     }
 
     //event handlers
-    //e - event
     this.onKeyDown = function (e) {
         if (!_this.keys.isPressed[e.keyCode]) {
             _this.keys.isPressed[e.keyCode] = true;
@@ -22,7 +18,6 @@ function Keyboard(d, ev) {
             }
         }
     }
-    //e - event
     this.onKeyUp = function (e) {
         _this.keys.isPressed[e.keyCode] = false;
         switch (e.keyCode) {
@@ -33,6 +28,6 @@ function Keyboard(d, ev) {
     }
 
     //listeners initialization
-    d.addEventListener('keydown', _this.onKeyDown);
-    d.addEventListener('keyup', _this.onKeyUp);
+    d.addEventListener('keydown', this.onKeyDown);
+    d.addEventListener('keyup', this.onKeyUp);
 }

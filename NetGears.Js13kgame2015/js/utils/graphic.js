@@ -1,7 +1,4 @@
-﻿
-//d - document, c - canvas, ctx - context
-function Graphic(d, c, ctx) {
-    //private variable
+﻿function Graphic(d, c, ctx) {
     var _this = this;
 
     //TODO

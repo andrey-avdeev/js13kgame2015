@@ -1,6 +1,4 @@
-﻿
-//c - canvas, ctx - context, p - physics
-function Game(c, ctx, p) {
+﻿function Game(d, c, ctx, p, asteroids, explosions, laserbeams, player, stars, walls) {
     var now,
         dt = 0,
         last = timeStamp(),
@@ -11,9 +9,9 @@ function Game(c, ctx, p) {
         dt = dt + Math.min(1, (now - last) / 1000);    // duration in seconds
         while (dt > step) {
             dt = dt - step;
-            update();
+            update(dt);
         }
-        render();
+        render(c, ctx);
 
         last = now;
         requestAnimationFrame(frame);
@@ -23,61 +21,86 @@ function Game(c, ctx, p) {
         return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
     };
 
-    function update() {
-        //check if player is exploded, then update
-        if (!player.isExploded) {
-            player.update(dt, p);
-        } else {
-            //TODO
-        }
+    function update(dt) {
+        if (player != null && player.isActive) player.update(dt, p);
 
-        //check if asteroid in array is exploded, then remove from array or update it
         if (asteroids.length > 0) {
             asteroids.forEach(function (asteroid, i, arr) {
-                if (!asteroid.isExploded) {
+                if (asteroid.isActive) {
                     asteroid.update(dt, p);
                 } else {
                     arr.splice(i, 1);
                 }
             });
         }
-
-
-        //check if laserbeam in array is exploded, then remove from array or update it
+        if (explosions.length > 0) {
+            explosions.forEach(function (explosion, i, arr) {
+                if (explosion.isActive) {
+                    explosion.update(dt, p);
+                } else {
+                    arr.splice(i, 1);
+                }
+            });
+        }
         if (laserbeams.length > 0) {
             laserbeams.forEach(function (laserbeam, i, arr) {
-                if (!laserbeam.isExploded) {
+                if (laserbeam.isActive) {
                     laserbeam.update(dt, p);
                 } else {
                     arr.splice(i, 1);
                 }
             });
         }
+        if (stars.length > 0) {
+            stars.forEach(function (star, i, arr) {
+                if (star.isActive) {
+                    star.update(dt, p);
+                } else {
+                    arr.splice(i, 1);
+                }
+            });
+        }
+        if (walls.length > 0) {
+            wall.forEach(function (wall, i, arr) {
+                if (wall.isActive) {
+                    wall.update(dt, p);
+                } else {
+                    arr.splice(i, 1);
+                }
+            });
+        }
     };
-    function render() {
+    function render(c, ctx) {
         //saving context
         ctx.save();
         //clearing canvas
         ctx.clearRect(0, 0, c.width, c.height);
 
-        //draw player on canvas
-        if (!player.isExploded) {
-            player.draw(c, ctx);
-        } else {
-            //TODO
-        }
+        if (player != null && player.isActive) player.draw(ctx);
 
-        ////draw asteroids on canvas
         if (asteroids.length > 0) {
             asteroids.forEach(function (asteroid, i, arr) {
-                asteroid.draw(c, ctx);
+                asteroid.draw(ctx);
             });
         }
-
-        ////draw laserbeams on canvas
+        if (explosions.length > 0) {
+            explosions.forEach(function (explosion, i, arr) {
+                explosion.draw(ctx);
+            });
+        }
         if (laserbeams.length > 0) {
             laserbeams.forEach(function (laserbeam, i, arr) {
-                laserbeam.draw(c, ctx);
+                laserbeam.draw(ctx);
+            });
+        }
+        if (stars.length > 0) {
+            stars.forEach(function (star, i, arr) {
+                star.draw(ctx);
+            });
+        }
+        if (walls.length > 0) {
+            walls.forEach(function (wall, i, arr) {
+                wall.draw(ctx);
             });
         }
 

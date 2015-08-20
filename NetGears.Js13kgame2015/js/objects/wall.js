@@ -1,4 +1,4 @@
-﻿function LaserBeam(p, v, m, w, h) {
+﻿function Wall(p, v, m, w, h) {
     var _this = this;
 
     //parameters
@@ -16,7 +16,7 @@
     this.isActive = true;
 }
 
-LaserBeam.prototype.update = function (dt, p) {
+Wall.prototype.update = function (dt, p) {
     //var m = this.mass;
     //var v = this.velocity;
     //var pos = this.position;
@@ -28,7 +28,7 @@ LaserBeam.prototype.update = function (dt, p) {
     //    this.isExploded = true;
     //}
 }
-LaserBeam.prototype.draw = function (ctx) {
-    ctx.fillStyle = "red";
+Wall.prototype.draw = function (ctx) {
+    ctx.fillStyle = "black";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 }

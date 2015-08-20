@@ -1,23 +1,20 @@
-﻿function Asteroid(x, y, vx, vy, m) {
+﻿function Asteroid(p, v, m, r) {
     var _this = this;
 
     //parameters
-    this.position = new Vec2(x, y);
-    this.velosity = new Vec2(vx, vy);
+    this.position = p;
+    this.velosity = v;
     this.mass = m;
 
-    this.radius = 10;
+    this.radius = r;
 
     this.collisionType = "circle";
-    this.collisionRadius = 10;
+    this.collisionRadius = r - 1;
 
     this.isActive = true;
-
-    //listeners initialization
-    //canvas.addEventListener('asteroidExplode', this.explode);
 }
 
-Asteroid.prototype.update = function (dt) {
+Asteroid.prototype.update = function (dt,p) {
     //TODO
 }
 Asteroid.prototype.draw = function (ctx) {
@@ -28,8 +25,4 @@ Asteroid.prototype.draw = function (ctx) {
     ctx.lineWidth = 5;
     ctx.strokeStyle = '#003300';
     ctx.stroke();
-}
-
-Asteroid.prototype.explode = function (e) {
-    this.isActive = false;
 }

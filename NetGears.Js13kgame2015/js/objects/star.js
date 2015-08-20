@@ -1,16 +1,17 @@
-﻿function Star(x, y, vx, vy) {
+﻿function Star(p, v, w, h) {
     var _this = this;
 
-    this.position = new Vec2(x, y);
-    this.velosity = new Vec2(vx, vy);
+    //parameters
+    this.position = p;
+    this.velosity = v;
 
-    this.width = 2;
-    this.height = 2;
+    this.width = w;
+    this.height = h;
 
     this.isActive = true;
 }
 
-Star.prototype.update = function (dt) {
+Star.prototype.update = function (dt,p) {
     //TODO
 }
 Star.prototype.draw = function (ctx) {

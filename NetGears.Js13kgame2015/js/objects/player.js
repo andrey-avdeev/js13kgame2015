@@ -1,26 +1,25 @@
-﻿function Player(x, y, vx, vy, m) {
+﻿function Player(p, v, m, w, h) {
     var _this = this;
 
     //parameters
-    this.position = new Vec2(x, y);
-    this.velosity = new Vec2(vx, vy);
+    this.position = p;
+    this.velosity = v;
     this.mass = m;
 
-    this.width = 10;
-    this.height = 5;
+    this.width = w;
+    this.height = h;
 
     this.collisionType = "rectangle";
-    this.collisionWidth = 10;
-    this.collisionHeight = 5;
+    this.collisionWidth = w - 1;
+    this.collisionHeight = h - 1;
 
     this.isActive = true;
 
     //listeners initialization
-    d.addEventListener('playerShoot', this.shoot);
-    d.addEventListener('playerExplode', this.explode);
+    //d.addEventListener('playerShoot', this.shoot);
 }
 
-Player.prototype.update = function (dt) {
+Player.prototype.update = function (dt, p) {
     //_this.position.plus(p.gravityPositionImpact(dt, _this.mass, _this.velosity));
     //_this.velosity.plus(p.gravityVelocityImpact(dt, _this.mass));
 
@@ -35,7 +34,4 @@ Player.prototype.draw = function (ctx) {
 
 Player.prototype.shoot = function (e) {
     //d.dispatchEvent(ev.laserbeamCreate(this.position.x + this.width, this.position.y + this.height / 2));
-}
-Player.prototype.explode = function (e) {
-    this.isActive = false;
 }
