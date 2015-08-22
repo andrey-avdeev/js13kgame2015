@@ -1,8 +1,7 @@
-﻿
-//d - document, c - canvas, ctx - context, ev - custom events
-function Mouse(d, c, ctx, ev) {
-    var _this = this;
+﻿function Mouse(d, ev, c) {
+    var _t = this;
 
+    //parameters
     this.position = new Vec2(0, 0);
 
     this.isDown = false;
@@ -10,34 +9,29 @@ function Mouse(d, c, ctx, ev) {
     //private canvas bounding rectangle
     var r = c.getBoundingClientRect();
 
-    //event handlers
-    //e - event
-    this.onMouseDown = function (e) {
-        if (!_this.isDown) {
-            _this.isDown = true;
+    this.refreshPosition = function (e, r) {
+        _t.position.set(Math.round((e.clientX - r.left) / (r.right - r.left) * c.width), Math.round((e.clientY - r.top) / (r.bottom - r.top) * c.height));
+    }
 
-            d.dispatchEvent(ev.playerShoot());
+    //event handlers
+    this.onMouseDown = function (e) {       
+        if (!_t.isDown) {
+            _t.isDown = true;
+            //TODO
+            d.dispatchEvent(ev.playerShoot());         
         }
     }
-    //e - event
     this.onMouseMove = function (e) {
-        _this.refreshPosition(e, r);
+        _t.refreshPosition(e, r);
         //TODO
     }
-    //e - event
     this.onMouseUp = function (e) {
-        _this.isDown = false;
+        _t.isDown = false;
         //TODO
-    }
-
-    //refresh current canvas mouse position
-    //e - event, r - canvas bounding rectangle
-    this.refreshPosition = function (e, r) {
-        _this.position.set(Math.round((e.clientX - r.left) / (r.right - r.left) * c.width), Math.round((e.clientY - r.top) / (r.bottom - r.top) * c.height));
     }
 
     //listeners initialization
-    d.addEventListener('mousedown', _this.onMouseDown);
-    d.addEventListener('mousemove', _this.onMouseMove);
-    d.addEventListener('mouseup', _this.onMouseUp);
+    d.addEventListener('mousedown', _t.onMouseDown);
+    d.addEventListener('mousemove', _t.onMouseMove);
+    d.addEventListener('mouseup', _t.onMouseUp);
 }

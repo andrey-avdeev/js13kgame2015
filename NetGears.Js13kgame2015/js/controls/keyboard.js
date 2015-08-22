@@ -1,19 +1,15 @@
-﻿
-//d - document, ev - customevents
-function Keyboard(d, ev) {
-    //private variable
-    var _this = this;
+﻿function Keyboard(d, ev) {
+    var _t = this;
 
-    //keys state
+    //parameters
     this.keys = {
         isPressed: {}
     }
 
     //event handlers
-    //e - event
     this.onKeyDown = function (e) {
-        if (!_this.keys.isPressed[e.keyCode]) {
-            _this.keys.isPressed[e.keyCode] = true;
+        if (!_t.keys.isPressed[e.keyCode]) {
+            _t.keys.isPressed[e.keyCode] = true;
 
             switch (e.keyCode) {
                 case 82:
@@ -22,9 +18,8 @@ function Keyboard(d, ev) {
             }
         }
     }
-    //e - event
     this.onKeyUp = function (e) {
-        _this.keys.isPressed[e.keyCode] = false;
+        _t.keys.isPressed[e.keyCode] = false;
         switch (e.keyCode) {
             case 82:
                 d.dispatchEvent(ev.gravityReverse());
@@ -33,6 +28,6 @@ function Keyboard(d, ev) {
     }
 
     //listeners initialization
-    d.addEventListener('keydown', _this.onKeyDown);
-    d.addEventListener('keyup', _this.onKeyUp);
+    d.addEventListener('keydown', _t.onKeyDown);
+    d.addEventListener('keyup', _t.onKeyUp);
 }

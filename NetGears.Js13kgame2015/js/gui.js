@@ -1,6 +1,12 @@
-﻿
-//
-function GUI(d) {
+﻿function GUI(d, ev) {
+    var _this = this;
+
+    //parameters
+    this.score = 0;
+    this.lives = 3;
+
+    this.width = 100;
+
 
     ////listeners initialization
     //d.addEventListener('gravityReverse',);
@@ -15,6 +21,6 @@ function GUI(d) {
     //d.addEventListener('asteroidExplode',);
 }
 
-GUI.prototype.draw = function (c, ctx) {
+GUI.prototype.draw = function (ctx) {
 
 }
