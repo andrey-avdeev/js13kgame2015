@@ -1,19 +1,17 @@
-﻿function Keyboard(d, ev) {
+﻿function Keyboard() {
     var _t = this;
 
-    //parameters
     this.keys = {
         isPressed: {}
     }
 
-    //event handlers
     this.onKeyDown = function (e) {
         if (!_t.keys.isPressed[e.keyCode]) {
             _t.keys.isPressed[e.keyCode] = true;
 
             switch (e.keyCode) {
                 case 82:
-                    d.dispatchEvent(ev.gravityReverse());
+                    $.g *= -1;
                     break;
             }
         }
@@ -22,12 +20,11 @@
         _t.keys.isPressed[e.keyCode] = false;
         switch (e.keyCode) {
             case 82:
-                d.dispatchEvent(ev.gravityReverse());
+                $.g *= -1;
                 break;
         }
     }
 
-    //listeners initialization
-    d.addEventListener('keydown', _t.onKeyDown);
-    d.addEventListener('keyup', _t.onKeyUp);
+    document.addEventListener('keydown', this.onKeyDown);
+    document.addEventListener('keyup', this.onKeyUp);
 }

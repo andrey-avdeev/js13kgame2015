@@ -9,6 +9,19 @@
     //physics parameters
     $.g = 9.8;
 
+    //updating system
+    $.effectsLength = 10;
+    $.objectsLength = 100;
+
+    $.effects = new Array($.effectsLength);
+    $.objects = new Array($.objectsLength);
+
+    //gui system
+    $.lives = 3;
+
+    $.boostsLength = 2;
+    $.boosts = new Array($.boostsLength);
+
     var _t = this;
 
     this.graphic = new Graphic(ctx);
@@ -48,89 +61,96 @@
     };
 
     function update(t) {
-        //updating positions of objects
-        if (_t.asteroids.length > 0) {
-            var asteroidsNew = new Array();
-            _t.asteroids.forEach(function (asteroid, i, arr) {
-                if (asteroid.isActive && !isCircleOut(asteroid)) {
-                    asteroid.position.x += (asteroid.mass * _t.physics.gravity.x * t * t / 2) + (asteroid.velocity.x * t);
-                    asteroid.position.y += (asteroid.mass * _t.physics.gravity.y * t * t / 2) + (asteroid.velocity.y * t);
-                    asteroid.velocity.x += asteroid.mass * _t.physics.gravity.x * t;
-                    asteroid.velocity.y += asteroid.mass * _t.physics.gravity.y * t;
-
-                    asteroidsNew.push(asteroid);
-                }
-            });
-            _t.asteroids = asteroidsNew;
+        for (var i = 0; i < $.effectsLength; i++) {
+            $.effects[i].update();
         }
-        if (_t.explosions.length > 0) {
-            _t.explosions.forEach(function (explosion, i, arr) {
-                if (explosion.isActive) {
-                    //TODO
-                } else {
-                    arr.splice(i, 1);
-                }
-            });
-        }
-        if (_t.laserbeams.length > 0) {
-            var laserbeamsNew = new Array();
-            _t.laserbeams.forEach(function (laserbeam, i, arr) {
-                if (laserbeam.isActive && !isRectangleOut(laserbeam)) {
-                    laserbeam.position.x += laserbeam.velocity.x * t;
-
-                    laserbeamsNew.push(laserbeam);
-                }
-            });
-            _t.laserbeams = laserbeamsNew;
-        }
-        if (_t.player != null && _t.player.isActive) {
-            _t.player.position.x += _t.player.mass * _t.physics.gravity.x * t * t / 2 + _t.player.velocity.x * t;
-            _t.player.position.y += _t.player.mass * _t.physics.gravity.y * t * t / 2 + _t.player.velocity.y * t;
-            _t.player.velocity.x += _t.player.mass * _t.physics.gravity.x * t;
-            _t.player.velocity.y += _t.player.mass * _t.physics.gravity.y * t;
-        }
-        if (_t.stars.length > 0) {
-            var starsNew = new Array();
-            _t.stars.forEach(function (star, i, arr) {
-                if (!isRectangleOut(star)) {
-                    star.position.x += star.velocity.x * t;
-                    star.position.y += star.velocity.y * t;
-
-                    starsNew.push(star);
-                }
-            });
-            _t.stars = starsNew;
-        }
-        if (_t.walls.length > 0) {
-            var wallsNew = new Array();
-            _t.walls.forEach(function (wall, i, arr) {
-                if (!isRectangleOut(wall)) {
-                    wall.position.x += wall.velocity.x * t;
-                    wall.position.y += wall.velocity.y * t;
-
-                    wallsNew.push(wall);
-                }
-            });
-            _t.walls = wallsNew;
+        for (var i = 0; i < $.objectsLength; i++) {
+            $.objects[i].update();
         }
 
-        //checking collisions
-        //checkCollision(player, walls);
-        //checkCollision(player, asteroids);
+        ////updating positions of objects
+        //if (_t.asteroids.length > 0) {
+        //    var asteroidsNew = new Array();
+        //    _t.asteroids.forEach(function (asteroid, i, arr) {
+        //        if (asteroid.isActive && !isCircleOut(asteroid)) {
+        //            asteroid.position.x += (asteroid.mass * _t.physics.gravity.x * t * t / 2) + (asteroid.velocity.x * t);
+        //            asteroid.position.y += (asteroid.mass * _t.physics.gravity.y * t * t / 2) + (asteroid.velocity.y * t);
+        //            asteroid.velocity.x += asteroid.mass * _t.physics.gravity.x * t;
+        //            asteroid.velocity.y += asteroid.mass * _t.physics.gravity.y * t;
 
-        //checkCollisions(walls, asteroids);
-        //checkCollisions(laserbeams, asteroids);
+        //            asteroidsNew.push(asteroid);
+        //        }
+        //    });
+        //    _t.asteroids = asteroidsNew;
+        //}
+        //if (_t.explosions.length > 0) {
+        //    _t.explosions.forEach(function (explosion, i, arr) {
+        //        if (explosion.isActive) {
+        //            //TODO
+        //        } else {
+        //            arr.splice(i, 1);
+        //        }
+        //    });
+        //}
+        //if (_t.laserbeams.length > 0) {
+        //    var laserbeamsNew = new Array();
+        //    _t.laserbeams.forEach(function (laserbeam, i, arr) {
+        //        if (laserbeam.isActive && !isRectangleOut(laserbeam)) {
+        //            laserbeam.position.x += laserbeam.velocity.x * t;
 
-        //generate new objects
-        if (_t.asteroids.length < 5) {
-            _t.asteroids.push(new Asteroid(new Vec2(Random(_t.bound, c.width - _t.bound), Random(_t.bound, c.height - _t.bound)), new Vec2(Random(-1000, -100), 0), 10, 5));
-        }
-        if (_t.stars.length < 20) {
-            _t.stars.push(new Star(new Vec2(Random(_t.bound, c.width - _t.bound), Random(_t.bound, c.height - _t.bound)), new Vec2(-1000, Random(-10, 10)), Random(1, 5), Random(1, 5)));
-        }
-        if (_t.walls.length < 100) {
-            _t.walls.push(new Wall(new Vec2(c.width - 20, 1), new Vec2(-100, 0), 40, Random(10, 100)));
-        }
+        //            laserbeamsNew.push(laserbeam);
+        //        }
+        //    });
+        //    _t.laserbeams = laserbeamsNew;
+        //}
+        //if (_t.player != null && _t.player.isActive) {
+        //    _t.player.position.x += _t.player.mass * _t.physics.gravity.x * t * t / 2 + _t.player.velocity.x * t;
+        //    _t.player.position.y += _t.player.mass * _t.physics.gravity.y * t * t / 2 + _t.player.velocity.y * t;
+        //    _t.player.velocity.x += _t.player.mass * _t.physics.gravity.x * t;
+        //    _t.player.velocity.y += _t.player.mass * _t.physics.gravity.y * t;
+        //}
+        //if (_t.stars.length > 0) {
+        //    var starsNew = new Array();
+        //    _t.stars.forEach(function (star, i, arr) {
+        //        if (!isRectangleOut(star)) {
+        //            star.position.x += star.velocity.x * t;
+        //            star.position.y += star.velocity.y * t;
+
+        //            starsNew.push(star);
+        //        }
+        //    });
+        //    _t.stars = starsNew;
+        //}
+        //if (_t.walls.length > 0) {
+        //    var wallsNew = new Array();
+        //    _t.walls.forEach(function (wall, i, arr) {
+        //        if (!isRectangleOut(wall)) {
+        //            wall.position.x += wall.velocity.x * t;
+        //            wall.position.y += wall.velocity.y * t;
+
+        //            wallsNew.push(wall);
+        //        }
+        //    });
+        //    _t.walls = wallsNew;
+        //}
+
+        ////checking collisions
+        ////checkCollision(player, walls);
+        ////checkCollision(player, asteroids);
+
+        ////checkCollisions(walls, asteroids);
+        ////checkCollisions(laserbeams, asteroids);
+
+        ////generate new objects
+        //if (_t.asteroids.length < 5) {
+        //    _t.asteroids.push(new Asteroid(new Vec2(Random(_t.bound, c.width - _t.bound), Random(_t.bound, c.height - _t.bound)), new Vec2(Random(-1000, -100), 0), 10, 5));
+        //}
+        //if (_t.stars.length < 20) {
+        //    _t.stars.push(new Star(new Vec2(Random(_t.bound, c.width - _t.bound), Random(_t.bound, c.height - _t.bound)), new Vec2(-1000, Random(-10, 10)), Random(1, 5), Random(1, 5)));
+        //}
+        //if (_t.walls.length < 100) {
+        //    _t.walls.push(new Wall(new Vec2(c.width - 20, 1), new Vec2(-100, 0), 40, Random(10, 100)));
+        //}
     };
     function render(c, ctx) {
         //saving context
@@ -138,34 +158,40 @@
         //clearing canvas
         ctx.clearRect(0, 0, c.width, c.height);
 
-        if (_t.asteroids.length > 0) {
-            _t.asteroids.forEach(function (asteroid, i, arr) {
-                _t.graphic.drawAsteroid(asteroid);
-            });
+        for (var i = 0; i < $.effectsLength; i++) {
+            $.effects[i].render();
         }
-        if (_t.explosions.length > 0) {
-            _t.explosions.forEach(function (explosion, i, arr) {
-                _t.graphic.drawExplosion(explosion);
-            });
+        for (var i = 0; i < $.objectsLength; i++) {
+            $.objects[i].render();
         }
-        if (_t.laserbeams.length > 0) {
-            _t.laserbeams.forEach(function (laserbeam, i, arr) {
-                _t.graphic.drawLaserBeam(laserbeam);
-            });
-        }
-        if (_t.stars.length > 0) {
-            _t.stars.forEach(function (star, i, arr) {
-                _t.graphic.drawStar(star);
-            });
-        }
-        if (_t.walls.length > 0) {
-            _t.walls.forEach(function (wall, i, arr) {
-                _t.graphic.drawWall(wall);
-                console.log(wall);
-            });
-        }
-        if (_t.player != null && _t.player.isActive) _t.graphic.drawPlayer(_t.player);
-        if (_t.gui != null) _t.graphic.drawGui(_t.gui);
+        //if (_t.asteroids.length > 0) {
+        //    _t.asteroids.forEach(function (asteroid, i, arr) {
+        //        _t.graphic.drawAsteroid(asteroid);
+        //    });
+        //}
+        //if (_t.explosions.length > 0) {
+        //    _t.explosions.forEach(function (explosion, i, arr) {
+        //        _t.graphic.drawExplosion(explosion);
+        //    });
+        //}
+        //if (_t.laserbeams.length > 0) {
+        //    _t.laserbeams.forEach(function (laserbeam, i, arr) {
+        //        _t.graphic.drawLaserBeam(laserbeam);
+        //    });
+        //}
+        //if (_t.stars.length > 0) {
+        //    _t.stars.forEach(function (star, i, arr) {
+        //        _t.graphic.drawStar(star);
+        //    });
+        //}
+        //if (_t.walls.length > 0) {
+        //    _t.walls.forEach(function (wall, i, arr) {
+        //        _t.graphic.drawWall(wall);
+        //        console.log(wall);
+        //    });
+        //}
+        //if (_t.player != null && _t.player.isActive) _t.graphic.drawPlayer(_t.player);
+        //if (_t.gui != null) _t.graphic.drawGui(_t.gui);
 
         //restoring context
         ctx.restore();
