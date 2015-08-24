@@ -1,10 +1,14 @@
-﻿function Player(p, v, m, w, h) {
-    this.position = p;
-    this.velocity = v;
-    this.mass = m;
+﻿function Player(params) {
+    BaseObject.call(this, params);
 
-    this.width = w;
-    this.height = h;
+    this.m = params.m;
+}
+Player.prototype.update = function () {
+    this.x += this.vx * $.dt;
+    this.y += $.g * this.vy * $.dt / this.m;
 
-    this.isActive = true;
+    this.vy += $.g * $.dt / this.m;
+}
+Player.prototype.render = function () {
+
 }

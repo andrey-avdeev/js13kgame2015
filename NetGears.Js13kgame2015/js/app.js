@@ -12,6 +12,6 @@
     var keyboard = new Keyboard($d, events);
 
     //game looper e.t.c
-    var game = new Game($d, events, canvas, ctx);
+    //var game = new Game($d, events, canvas, ctx);
 }
 

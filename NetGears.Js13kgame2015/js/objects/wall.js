@@ -1,9 +1,10 @@
-﻿function Wall(p, v, w, h) {
-    this.position = p;
-    this.velocity = v;
+﻿function Wall(params) {
+    BaseObject.call(this, params);
+}
+Wall.prototype.update = function () {
+    this.x += this.vx * $.dt;
+    this.y += this.vy * $.dt;
+}
+Wall.prototype.render = function () {
 
-    this.width = w;
-    this.height = h;
-
-    this.isActive = true;
 }

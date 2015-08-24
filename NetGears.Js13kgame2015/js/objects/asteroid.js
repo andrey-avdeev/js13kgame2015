@@ -1,9 +1,14 @@
-﻿function Asteroid(p, v, m, r) {
-    this.position = p;
-    this.velocity = v;
-    this.mass = m;
+﻿function Asteroid(params) {
+    BaseObject.call(this, params);
 
-    this.radius = r;
+    this.m = params.m;
+}
+Asteroid.prototype.update = function () {
+    this.x += this.vx * $.dt;
+    this.y += $.g * this.vy * $.dt / this.m;
 
-    this.isActive = true;
+    this.vy += $.g * $.dt / this.m;
+}
+Asteroid.prototype.render = function () {
+
 }

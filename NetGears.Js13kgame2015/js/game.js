@@ -1,4 +1,14 @@
 ﻿function Game(d, ev, c, ctx) {
+    //time parameters
+    $.dt = 0;
+
+    $.timeNow = 0;
+    $.timeLast = 0;
+    $.timeElapsed = 0;
+
+    //physics parameters
+    $.g = 9.8;
+
     var _t = this;
 
     this.graphic = new Graphic(ctx);

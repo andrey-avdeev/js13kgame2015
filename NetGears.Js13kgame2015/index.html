@@ -4,14 +4,23 @@
     <meta charset="utf-8" />
     <title>Prototype</title>
 
+</head>
+<body>
+    <div id="canvas-container">
+        <canvas id="canvas" width="1000" height="500">Your browser does not support canvas. Update it pls.</canvas>
+    </div>
+    <script>var $ = {};</script>
     <script src="js/controls/keyboard.js"></script>
     <script src="js/controls/mouse.js"></script>
 
+    <script src="js/effects/baseeffect.js"></script>
+    <script src="js/effects/explosion.js"></script>
+    <script src="js/effects/star.js"></script>
+
     <script src="js/objects/asteroid.js"></script>
-    <script src="js/objects/explosion.js"></script>
+    <script src="js/objects/baseobject.js"></script>
     <script src="js/objects/laserbeam.js"></script>
     <script src="js/objects/player.js"></script>
-    <script src="js/objects/star.js"></script>
     <script src="js/objects/wall.js"></script>
 
     <script src="js/utils/events.js"></script>
@@ -22,10 +31,5 @@
     <script src="js/app.js"></script>
     <script src="js/game.js"></script>
     <script src="js/gui.js"></script>
-</head>
-<body>
-    <div id="canvas-container">
-        <canvas id="canvas" width="1000" height="500">Your browser does not support canvas. Update it pls.</canvas>
-    </div>
 </body>
 </html>

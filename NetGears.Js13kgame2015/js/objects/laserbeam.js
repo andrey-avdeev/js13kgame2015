@@ -1,9 +1,10 @@
-﻿function LaserBeam(p, v, w, h) {
-    this.position = p;
-    this.velocity = v;
+﻿function LaserBeam(params) {
+    BaseObject.call(this, params);
+}
+LaserBeam.prototype.update = function () {
+    this.x += this.vx * $.dt;
+    this.y += this.vy * $.dt;
+}
+LaserBeam.prototype.render = function () {
 
-    this.width = w;
-    this.height = h;
-
-    this.isActive = true;
 }
