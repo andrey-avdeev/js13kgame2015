@@ -22,6 +22,8 @@
     <Content Include="js\app.js" />
     <Content Include="js\controls\keyboard.js" />
     <Content Include="js\effects\baseeffect.js" />
+    <Content Include="js\effects\explosion.js" />
+    <Content Include="js\effects\star.js" />
     <Content Include="js\objects\baseobject.js" />
     <Content Include="js\objects\powerup.js" />
     <Content Include="js\objects\wall.js" />
