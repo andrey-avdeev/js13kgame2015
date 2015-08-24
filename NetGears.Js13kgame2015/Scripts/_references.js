@@ -16,3 +16,4 @@
 /// <reference path="../js/effects/star.js" />
 /// <reference path="../js/effects/baseeffect.js" />
 /// <reference path="../js/objects/laserbeam.js" />
+/// <reference path="../js/objects/powerup.js" />

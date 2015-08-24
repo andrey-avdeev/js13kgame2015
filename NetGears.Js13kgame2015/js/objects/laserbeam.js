@@ -6,5 +6,4 @@ LaserBeam.prototype.update = function () {
     this.y += this.vy * $.dt;
 }
 LaserBeam.prototype.render = function () {
-
 }
