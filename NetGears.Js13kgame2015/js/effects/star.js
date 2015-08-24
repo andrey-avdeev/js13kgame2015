@@ -5,8 +5,14 @@
     this.vy = params.vy;
 }
 Star.prototype.update = function () {
-    this.x += this.vx * $.dt;
-    this.y += this.vy * $.dt;
+    if (this.isRendered && this.time >= this.timeMax) {
+        this.isRendered = false;
+    } else {
+        this.time += $.dt;
+
+        this.x += this.vx * $.dt;
+        this.y += this.vy * $.dt;
+    }
 }
 Star.prototype.render = function () {
 
