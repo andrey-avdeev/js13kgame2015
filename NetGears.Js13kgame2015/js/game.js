@@ -3,7 +3,7 @@
     $.dt = 0;
 
     $.timeNow = 0;
-    $.timeLast = 0;
+    $.timeLast = GetTimeStamp();
     $.timeElapsed = 0;
 
     //physics parameters
@@ -43,24 +43,27 @@
         last = timeStamp(),
         step = 1 / 60;
 
-    function frame() {
-        now = timeStamp();
-        dt = dt + Math.min(1, (now - last) / 1000);    // duration in seconds
-        while (dt > step) {
-            dt = dt - step;
-            update(dt);
-        }
-        render(c, ctx);
 
-        last = now;
-        requestAnimationFrame(frame);
-    };
+    function Frame() {
+        $.timeNow = GetTimeStamp();
 
-    function timeStamp() {
+        $.dt = ($.timeNow - $.timeLast) / 1000;
+        $.timeElapsed += $.dt;
+
+        update();
+        render();
+
+        $.timeLast = $.timeNow;
+
+        requestAnimationFrame(Frame);
+    }
+
+    function GetTimeStamp() {
         return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
-    };
+    }
 
-    function update(t) {
+
+    function update() {
         for (var i = 0; i < $.effectsLength; i++) {
             $.effects[i].update();
         }
@@ -68,7 +71,7 @@
             $.objects[i].update();
         }
     };
-    function render(c, ctx) {
+    function render() {
         //saving context
         ctx.save();
         //clearing canvas
@@ -80,34 +83,6 @@
         for (var i = 0; i < $.objectsLength; i++) {
             $.objects[i].render();
         }
-        //if (_t.asteroids.length > 0) {
-        //    _t.asteroids.forEach(function (asteroid, i, arr) {
-        //        _t.graphic.drawAsteroid(asteroid);
-        //    });
-        //}
-        //if (_t.explosions.length > 0) {
-        //    _t.explosions.forEach(function (explosion, i, arr) {
-        //        _t.graphic.drawExplosion(explosion);
-        //    });
-        //}
-        //if (_t.laserbeams.length > 0) {
-        //    _t.laserbeams.forEach(function (laserbeam, i, arr) {
-        //        _t.graphic.drawLaserBeam(laserbeam);
-        //    });
-        //}
-        //if (_t.stars.length > 0) {
-        //    _t.stars.forEach(function (star, i, arr) {
-        //        _t.graphic.drawStar(star);
-        //    });
-        //}
-        //if (_t.walls.length > 0) {
-        //    _t.walls.forEach(function (wall, i, arr) {
-        //        _t.graphic.drawWall(wall);
-        //        console.log(wall);
-        //    });
-        //}
-        //if (_t.player != null && _t.player.isActive) _t.graphic.drawPlayer(_t.player);
-        //if (_t.gui != null) _t.graphic.drawGui(_t.gui);
 
         //restoring context
         ctx.restore();

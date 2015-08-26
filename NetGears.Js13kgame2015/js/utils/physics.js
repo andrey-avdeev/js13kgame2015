@@ -4,51 +4,41 @@
     //parameters
     this.gravity = new Vec2(0, 9.8);
 
-    //gravity impact on position and velocity
-    //v - velocity of object, m - mass of object
-    //this.positionImpact = function (dt, m, velocity) {
-    //    var g = _this.gravity;
-    //    var v = velocity;
 
-    //    return new Vec2(((g.x * dt * dt) / (2 * m)) + v.x * dt, ((g.y * dt * dt) / (2 * m)) + v.y * dt);
-    //}
-    //this.velocityImpact = function (dt, m) {
-    //    var g = _this.gravity;
-
-    //    return new Vec2(g.x * dt / m, g.y * dt / m);
-    //}
-
-    //collision checking
-    this.CircleCircleColliding = function (circle1, circle2) {
-        if (circle1.position.distance(circle2.position) < circle1.radius + circle2.radius) {
-            return true;
-        } else {
-            return false;
-        }
+    //out of bonds detection
+    this.IsCircleOut = function (x1, y1, w1, h1, x2, y2, r2) {
+        return x1 + r2 < x2 ||
+                x2 + r2 < x1 ||
+                y1 + r2 < y2 ||
+                y2 + r2 < y1;
     }
-    this.RectangleCircleColliding = function (rectangle, circle) {
-        var distX = Math.abs(circle.position.x - rectangle.position.x - rectangle.width / 2);
-        var distY = Math.abs(circle.position.y - rectangle.position.y - rectangle.height / 2);
-
-        if (distX > (rectangle.width / 2 + circle.radius)) { return false; }
-        if (distY > (rectangle.height / 2 + circle.radius)) { return false; }
-
-        if (distX <= (rectangle.width / 2)) { return true; }
-        if (distY <= (rectangle.height / 2)) { return true; }
-
-        var dx = distX - rectangle.width / 2;
-        var dy = distY - rectangle.height / 2;
-        return (dx * dx + dy * dy <= (circle.radius * circle.radius));
+    this.IsRectangleOut = function (x1, y1, w1, h1, x2, y2, w2, h2) {
+        return false;
     }
-    this.RectangleRectangleColliding = function (rectangle1, rectangle2) {
-        if (rectangle1.position.x < rectangle2.position.x + rectangle2.width &&
-            rectangle1.position.x + rectangle1.width > rectangle2.position.x &&
-            rectangle1.position.y < rectangle2.position.y + rectangle2.height &&
-            rectangle1.position.y + rectangle1.height > rectangle2.position.y) {
-            return true;
-        } else {
-            return false;
-        }
+
+    //collision detection
+    this.IsCirclesCollides = function (x1, y1, r1, x2, y2, r2) {
+        return circle1.position.distance(circle2.position) < r1 + r2;
+    }
+    this.IsRectangleCircleCollides = function (x1, y1, w1, h1, x2, y2, r2) {
+        var distX = Math.abs(x2 - x1 - w1 / 2);
+        var distY = Math.abs(y2 - y1 - h1 / 2);
+
+        if (distX > (w1 / 2 + r2)) { return false; }
+        if (distY > (h1 / 2 + r2)) { return false; }
+
+        if (distX <= (w1 / 2)) { return true; }
+        if (distY <= (h1 / 2)) { return true; }
+
+        var dx = distX - w1 / 2;
+        var dy = distY - h1 / 2;
+        return (dx * dx + dy * dy <= (r2 * r2));
+    }
+    this.IsRectanglesCollides = function (x1, y1, w1, h1, x2, y2, w2, h2) {
+        return x1 < x2 + w2 &&
+                x1 + w1 > x2 &&
+                y1 < y2 + h2 &&
+                y1 + h1 > y2;
     }
 
     //event handlers
