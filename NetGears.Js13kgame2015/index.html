@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,7 +7,9 @@
 </head>
 <body>
     <div id="canvas-container">
-        <canvas id="canvas" width="1000" height="500">Your browser does not support canvas. Update it pls.</canvas>
+        <canvas width="1000" height="500" id="cbg" style="z-index:1;"></canvas>
+        <canvas width="1000" height="500" id="cfg" style="z-index:2;"></canvas>
+        <canvas width="1000" height="500" id="cgui" style="z-index:3;"></canvas>
     </div>
     <script src="js/controls/keyboard.js"></script>
     <script src="js/controls/mouse.js"></script>
@@ -31,5 +33,6 @@
     <script src="js/app.js"></script>
     <script src="js/game.js"></script>
     <script src="js/gui.js"></script>
+    <script src="js/utils.js"></script>
 </body>
 </html>

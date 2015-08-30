@@ -6,5 +6,5 @@
     this.vy = params.vy;
 
     this.isActive = true;
-    this.isRendered = false;
+    this.isRendered = true;
 }

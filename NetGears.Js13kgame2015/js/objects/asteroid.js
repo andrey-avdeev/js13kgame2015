@@ -5,9 +5,9 @@
 }
 Asteroid.prototype.update = function () {
     this.x += this.vx * $.dt;
-    this.y += $.g * this.vy * $.dt / this.m;
+    this.y += ($.g * $.dt * $.dt / 2) + this.vy * $.dt;
 
-    this.vy += $.g * $.dt / this.m;
+    this.vy += $.dt * $.g * this.m;
 }
 Asteroid.prototype.render = function () {
 

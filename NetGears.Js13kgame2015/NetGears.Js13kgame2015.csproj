@@ -28,6 +28,7 @@
     <Content Include="js\objects\powerup.js" />
     <Content Include="js\objects\wall.js" />
     <Content Include="js\gui.js" />
+    <Content Include="js\utils.js" />
     <Content Include="js\utils\events.js" />
     <Content Include="js\game.js" />
     <Content Include="js\objects\asteroid.js" />

@@ -17,3 +17,4 @@
 /// <reference path="../js/objects/laserbeam.js" />
 /// <reference path="../js/objects/powerup.js" />
 /// <reference path="../js/effects/explosion.js" />
+/// <reference path="../js/utils.js" />
