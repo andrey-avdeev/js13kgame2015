@@ -1,17 +1,20 @@
-﻿window.onload = function () {
-    var $d = document;
+﻿var $;
+
+window.onload = function () {
+
     //canvas initialization
-    var canvas = $d.getElementById("canvas")
-    var ctx = canvas.getContext("2d");
+
 
     //custom events initialization
-    var events = new Events();
+    //var events = new Events();
 
     //controls initialization
-    var mouse = new Mouse($d, events, canvas);
-    var keyboard = new Keyboard($d, events);
+    //var mouse = new Mouse($d, events, canvas);
+    //var keyboard = new Keyboard($d, events);
 
     //game looper e.t.c
-    //var game = new Game($d, events, canvas, ctx);
+    $ = new Game();
+    $.Start();
+    //<script>var $ = {};</script>
 }
 

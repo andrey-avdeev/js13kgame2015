@@ -15,5 +15,5 @@ Star.prototype.update = function () {
     }
 }
 Star.prototype.render = function () {
-
+    
 }

@@ -1,8 +1,8 @@
-﻿function Mouse(d, ev, c) {
+﻿function Mouse() {
     var _t = this;
 
-    //parameters
-    this.position = new Vec2(0, 0);
+    this.x = 0;
+    this.y = 0;
 
     this.isDown = false;
 
@@ -10,20 +10,19 @@
     var r = c.getBoundingClientRect();
 
     this.refreshPosition = function (e, r) {
-        _t.position.set(Math.round((e.clientX - r.left) / (r.right - r.left) * c.width), Math.round((e.clientY - r.top) / (r.bottom - r.top) * c.height));
+        _t.x = Math.round((e.clientX - r.left) / (r.right - r.left) * c.width);
+        _t.y = Math.round((e.clientY - r.top) / (r.bottom - r.top) * c.height);
     }
 
     //event handlers
     this.onMouseDown = function (e) {       
         if (!_t.isDown) {
             _t.isDown = true;
-            //TODO
-            d.dispatchEvent(ev.playerShoot());         
+            //TODO       
         }
     }
     this.onMouseMove = function (e) {
         _t.refreshPosition(e, r);
-        //TODO
     }
     this.onMouseUp = function (e) {
         _t.isDown = false;
