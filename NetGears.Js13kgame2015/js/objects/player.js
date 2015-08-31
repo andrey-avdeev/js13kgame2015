@@ -10,7 +10,8 @@ Player.prototype.update = function () {
     this.vy += $.dt * $.g * this.m;
 }
 Player.prototype.render = function () {
-    $.ctxfg.beginPath();
-    $.ctxfg.fillStyle = 'black';
-    $.ctxfg.fillRect(this.x, this.y, 10, 10);
+    //$.ctxfg.beginPath();
+    //$.ctxfg.fillStyle = 'green';
+    //$.ctxfg.fillRect(this.x, this.y, 10, 10);
+    $.ctxfg.drawImage($.cPrePlayer, this.x, this.y);
 }

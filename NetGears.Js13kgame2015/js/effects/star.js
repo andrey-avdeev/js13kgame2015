@@ -3,6 +3,10 @@
 
     this.vx = params.vx;
     this.vy = params.vy;
+
+    this.width = params.width;
+    this.height = params.height;
+    this.arrayIndex = params.arrayIndex;
 }
 Star.prototype.update = function () {
     if (this.time >= this.timeMax) {
@@ -24,7 +28,8 @@ Star.prototype.update = function () {
     }
 }
 Star.prototype.render = function () {
-    $.ctxfg.beginPath();
-    $.ctxfg.fillStyle = 'red';
-    $.ctxfg.fillRect(this.x, this.y, 2, 2);
+    //$.ctxfg.beginPath();
+    //$.ctxfg.fillStyle = 'red';
+    //$.ctxfg.fillRect(this.x, this.y, 1, 1);
+    $.ctxbg.drawImage($.cPreStars[this.arrayIndex], Math.round(this.x), Math.round(this.y))
 }
