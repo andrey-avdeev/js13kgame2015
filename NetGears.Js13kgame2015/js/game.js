@@ -21,7 +21,7 @@
 
 
     //game arrays
-    this.starsLength = 60;
+    this.starsLength = 100;
     this.explosionsLength = 31;
 
     this.asteroidsLength = 30;
@@ -154,9 +154,9 @@
         for (var i = 0; i < _this.starsLength; i++) {
             _this.stars[i] = new Star({
                 x: _this.width + _this.utils.Random(0, 100),
-                y: _this.height / 2 + _this.utils.Random(-50, 50),
+                y: _this.height / 2 + _this.utils.Random(-100, 100),
                 vx: _this.utils.Random(-200, -70),
-                vy: _this.utils.Random(-5, 5),
+                vy: _this.utils.Random(-10, 10),
                 width: Math.round(_this.utils.Random(1, 6)),
                 height: Math.round(_this.utils.Random(1, 6)),
                 arrayIndex: i,

@@ -31,5 +31,5 @@ Star.prototype.render = function () {
     //$.ctxfg.beginPath();
     //$.ctxfg.fillStyle = 'red';
     //$.ctxfg.fillRect(this.x, this.y, 1, 1);
-    $.ctxbg.drawImage($.cPreStars[this.arrayIndex], Math.round(this.x), Math.round(this.y))
+    $.ctxbg.drawImage($.cPreStars[1], Math.round(this.x), Math.round(this.y))
 }
