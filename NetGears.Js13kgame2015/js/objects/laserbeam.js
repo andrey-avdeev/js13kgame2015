@@ -32,13 +32,18 @@ LaserBeam.prototype.update = function () {
                 $.asteroids[i].isActive = false;
                 $.asteroids[i].isRendered = false;
 
-                $.explosions[this.index].x = this.x;
-                $.explosions[this.index].y = this.y;
-                $.explosions[this.index].vx = $.asteroids[i].vx;
-                $.explosions[this.index].time = 0;
-                $.explosions[this.index].isActive = true;
-                $.explosions[this.index].isRendered = true;
+                if ($.utils.Random(0, $.powerupsSpawnRate) > $.powerupsSpawnRate * 9 / 10) {
+                    var k = 0;
+                    while (k < $.powerupsLength && $.powerups[k].isActive) {
+                        k++;
+                    }
+                    if (k < $.powerupsLength) {
+                        $.powerups[k].refresh($.asteroids[i].x, $.asteroids[i].y);
+                    }
+                }
+
                 $.utils.PlaySound([3, , 0.1434, 0.6081, 0.2012, 0.0568, , 0.0091, , , , , , , , , , , 1, , , , , 0.21]);
+                $.explosions[this.index].refresh(this.x, this.y, $.asteroids[i].vx);
             }
         }
     }
@@ -48,4 +53,12 @@ LaserBeam.prototype.update = function () {
 }
 LaserBeam.prototype.render = function () {
     $.ctxfg.drawImage($.cPreLaserBeam, Math.round(this.x), Math.round(this.y));
+}
+
+LaserBeam.prototype.refresh = function (x, y) {
+    this.x = x;
+    this.y = y;
+
+    this.isActive = true;
+    this.isRendered = true;
 }

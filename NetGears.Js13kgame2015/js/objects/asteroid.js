@@ -29,11 +29,11 @@ Asteroid.prototype.update = function () {
             //return true;
         }
     }
-    for (var i = 0; i < $.asteroidsLength; i++) {
-        if ($.utils.IsCirclesCollides(this.x, this.y, this.radius, $.asteroids[i].x, $.asteroids[i].y, $.asteroids[i].radius)) {
-            //return true;
-        }
-    }
+    //for (var i = 0; i < $.asteroidsLength; i++) {
+    //    if ($.utils.IsCirclesCollides(this.x, this.y, this.radius, $.asteroids[i].x, $.asteroids[i].y, $.asteroids[i].radius)) {
+    //        //return true;
+    //    }
+    //}
 
     this.x += this.vx * $.dt;
     this.y += ($.g * $.dt * $.dt / 2) + this.vy * $.dt;
@@ -47,4 +47,15 @@ Asteroid.prototype.render = function () {
     $.ctxfg.fill();
     $.ctxfg.strokeStyle = 'white';
     $.ctxfg.stroke();
+}
+
+Asteroid.prototype.refresh = function () {
+    var randomRadius = $.utils.Random(1, 10);
+
+    this.x = $.width + this.index * 10;
+    this.y = Math.round($.utils.Random(0, $.height));
+    this.radius = randomRadius;
+    this.m = Math.round(10 / randomRadius) * 2;
+
+    this.isActive = true;
 }
