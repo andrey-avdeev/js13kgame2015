@@ -1,4 +1,6 @@
 ﻿function BaseObject(params) {
+    this.index = params.index;
+
     this.x = params.x;
     this.y = params.y;
 

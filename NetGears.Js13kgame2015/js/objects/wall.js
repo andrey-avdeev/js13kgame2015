@@ -4,9 +4,7 @@
     this.width = params.width;
     this.height = params.height;
 
-    this.type = params.type;
-
-    this.arrayIndex = params.arrayIndex;
+    this.wallType = params.wallType;
 
     this.isLastTop = false;
     this.isLastBottom = false;
@@ -20,46 +18,22 @@ Wall.prototype.update = function () {
     if (this.x + this.width <= 0) {
         this.isRendered = false;
 
-        var wallTempHeight = Math.round($.utils.Random(10, 100));
-        if (this.type === 'top') {
+        if (this.wallType === 'top') {
             this.x = $.walls[$.lastTopWallindex].x + $.walls[$.lastTopWallindex].width + 1;
+            this.y = Math.round($.utils.Random(-(this.height - 10), 0));
 
-            this.height = wallTempHeight;
-
-            $.lastTopWallindex = this.arrayIndex;
-
-            $.cPreWalls[this.arrayIndex].width = this.width + 1;
-            $.cPreWalls[this.arrayIndex].height = this.height;
-            $.ctxPreWalls[this.arrayIndex] = $.cPreWalls[this.arrayIndex].getContext('2d');
-            $.ctxPreWalls[this.arrayIndex].beginPath();
-            $.ctxPreWalls[this.arrayIndex].fillStyle = 'red';
-            $.ctxPreWalls[this.arrayIndex].fillRect(0, 0, this.width + 1, this.height);
-            $.ctxPreWalls[this.arrayIndex].stroke();
-        } else {
-
+            $.lastTopWallindex = this.index;
+        }
+        if (this.wallType === 'bottom') {
             this.x = $.walls[$.lastBottomWallindex].x + $.walls[$.lastBottomWallindex].width + 1;
+            this.y = Math.round($.utils.Random($.height - this.height, $.height - 10));
 
-            this.y = $.height - wallTempHeight;
-
-            this.height = wallTempHeight;
-
-            $.lastBottomWallindex = this.arrayIndex;
-
-            $.cPreWalls[this.arrayIndex].width = this.width + 1;
-            $.cPreWalls[this.arrayIndex].height = this.height;
-            $.ctxPreWalls[this.arrayIndex] = $.cPreWalls[this.arrayIndex].getContext('2d');
-            $.ctxPreWalls[this.arrayIndex].beginPath();
-            $.ctxPreWalls[this.arrayIndex].fillStyle = 'brown';
-            $.ctxPreWalls[this.arrayIndex].fillRect(0, 0, this.width + 1, this.height);
-            $.ctxPreWalls[this.arrayIndex].stroke();
+            $.lastBottomWallindex = this.index;
         }
     }
 
     this.x += this.vx * $.dt;
 }
 Wall.prototype.render = function () {
-    //$.ctxfg.beginPath();
-    //$.ctxfg.fillStyle = 'black';
-    //$.ctxfg.fillRect(this.x, this.y, this.width, this.height);
-    $.ctxfg.drawImage($.cPreWalls[this.arrayIndex], Math.round(this.x), Math.round(this.y));
+    $.ctxfg.drawImage($.cPreWall, Math.round(this.x), Math.round(this.y));
 }

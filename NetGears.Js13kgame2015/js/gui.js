@@ -7,20 +7,13 @@
 
     this.width = 100;
 
-
-    ////listeners initialization
-    //d.addEventListener('gravityReverse',);
-
-    //d.addEventListener('playerShoot', _this.shoot);
-    //d.addEventListener('playerExplode', _this.explode);
-
-    //d.addEventListener('laserbeamCreate',);
-    //d.addEventListener('laserbeamExplode',);
-
-    //d.addEventListener('asteroidCreate',);
-    //d.addEventListener('asteroidExplode',);
 }
-
-GUI.prototype.draw = function (ctx) {
-
+GUI.prototype.update = function () {
+    this.score += $.dt;
+}
+GUI.prototype.render = function () {
+    $.ctxgui.font = "20px Arial";
+    $.ctxgui.fillStyle = "red";
+    $.ctxgui.textAlign = "center";
+    $.ctxgui.fillText(Math.floor(this.score), 10, 50);
 }
