@@ -3,6 +3,9 @@
     this.doc = document;
     this.canvasContainer = this.doc.getElementById('canvas-container');
 
+    //game main settings
+    //this.settings = new Settings();
+
     //keyboard initialization
     this.keyboard = new Keyboard();
     this.doc.addEventListener('keydown', this.keyboard.onKeyDown);
@@ -24,65 +27,25 @@
     this.timeNow = 0;
     this.timeLast = GetTimeStamp();
     this.timeElapsed = 0;
-
+    this.timeDeath = -1;
+    this.timeImmortality = -1;
 
     //physics parameters
     this.g = 9.8;
 
-
-    //game arrays
-    //effects
-    this.starsLength = 100;
-    this.explosionsLength = 31;
-
-    //objects
-    this.asteroidsLength = 70;
-    //31-st explosion for player
-    this.laserbeamsLength = this.explosionsLength - 1;
-    this.powerupsLength = 5;
-    this.wallsLength = 44;
-
-    this.player = {};
-
-    this.stars = new Array(this.starsLength);
-    this.explosions = new Array(this.explosionsLength);
-
-    this.asteroids = new Array(this.asteroidsLength);
-    this.laserbeams = new Array(this.laserbeamsLength);
-    this.powerups = new Array(this.powerupsLength);
-    this.walls = new Array(this.wallsLength);
-
-    this.lastTopWallindex = 0;
-    this.lastBottomWallindex = 0;
-
-    //canvases and contexts
-    this.width = 400;
-    this.height = 300;
-
-
-
-    var widthToHeight = this.width / this.height;
+    //scaling
     var newWidth = window.innerWidth;
     var newHeight = window.innerHeight;
-    var newWidthToHeight = newWidth / newHeight;
 
-    if (newWidthToHeight > widthToHeight) {
-        newWidth = newHeight * widthToHeight;
-    } else {
-        newHeight = newWidth / widthToHeight;
-    }
+    this.scaleFactor = newWidth / newHeight;
 
-    //this.canvasContainer.style.marginTop = (-newHeight / 2) + 'px';
-    //this.canvasContainer.style.marginLeft = (-newWidth / 2) + 'px';
-    //this.width = newWidth;
-    //this.height = newHeight;
-
-
-
+    this.height = 300;
+    this.width = Math.round(this.height * this.scaleFactor - 1);
 
     var scaleX = this.width / window.innerWidth;
     var scaleY = this.height / window.innerHeight;
     var scaleToFit = Math.min(scaleX, scaleY);
+
 
     this.playerWidth = 10;
     this.playerHeight = 10;
@@ -98,6 +61,33 @@
 
     this.powerupsSpawnRate = 100;
 
+    //game arrays
+    //effects
+    this.starsLength = 100;
+    this.explosionsLength = 31;
+
+    //objects
+
+    //31-st explosion for player
+    this.laserbeamsLength = this.explosionsLength - 1;
+    this.powerupsLength = 5;
+    //to cover all width of widescreen
+    this.wallsLength = Math.round(this.width / this.wallWidth) * 2 + 4;
+    this.asteroidsLength = Math.round((70 / 22) * this.wallsLength);
+    this.player = {};
+
+    this.stars = new Array(this.starsLength);
+    this.explosions = new Array(this.explosionsLength);
+
+    this.asteroids = new Array(this.asteroidsLength);
+    this.laserbeams = new Array(this.laserbeamsLength);
+    this.powerups = new Array(this.powerupsLength);
+    this.walls = new Array(this.wallsLength);
+
+    this.lastTopWallindex = 0;
+    this.lastBottomWallindex = 0;
+
+    //canvases and contexts
     this.cbg = this.doc.getElementById("cbg");
     this.cfg = this.doc.getElementById("cfg");
     this.cgui = this.doc.getElementById("cgui");
@@ -127,7 +117,12 @@
     this.cPreStar.height = 2;
     this.ctxPreStar = this.cPreStar.getContext('2d');
 
+    this.preExplosionsLength = 11;
+    this.cPreExplosions = new Array(this.preExplosionsLength);
+    this.ctxPreExplosions = new Array(this.preExplosionsLength);
+
     this.cPreWall = this.doc.createElement('canvas');
+    //to cover bounds of walls
     this.cPreWall.width = this.wallWidth + 1;
     this.cPreWall.height = this.wallHeight;
     this.ctxPreWall = this.cPreWall.getContext('2d');
@@ -137,8 +132,9 @@
     this.cPreLaserBeam.height = this.laserbeamHeight;
     this.ctxPreLaserBeam = this.cPreLaserBeam.getContext('2d');
 
-    this.cPreAsteroids = new Array(this.asteroidsLength);
-    this.ctxPreAsteroids = new Array(this.asteroidsLength);
+    this.preAsteroidsLength = 11;
+    this.cPreAsteroids = new Array(this.preAsteroidsLength);
+    this.ctxPreAsteroids = new Array(this.preAsteroidsLength);
 
     this.cPrePowerups = new Array(this.powerupsLength);
     this.ctxPrePowerups = new Array(this.powerupsLength);
@@ -147,6 +143,11 @@
     this.cPrePlayer.width = this.playerWidth;
     this.cPrePlayer.height = this.playerHeight;
     this.ctxPrePlayer = this.cPrePlayer.getContext('2d');
+
+    this.cPreImmortalPlayer = this.doc.createElement('canvas');
+    this.cPreImmortalPlayer.width = this.playerWidth;
+    this.cPreImmortalPlayer.height = this.playerHeight;
+    this.ctxPreImmortalPlayer = this.cPreImmortalPlayer.getContext('2d');
 
 
     //Frame
@@ -217,31 +218,19 @@
         }
     }
     function Render() {
-        //saving context
-        //_this.ctxbg.save();
         _this.ctxfg.save();
         _this.ctxgui.save();
 
-        //_this.ctxbg.clearRect(0, 0, _this.width, _this.height);
         _this.ctxfg.clearRect(0, 0, _this.width, _this.height);
         _this.ctxgui.clearRect(0, 0, _this.width, _this.height);
 
-        //gui rendering
         _this.gui.render();
 
-        //effects rendering
         for (var i = 0; i < _this.starsLength; i++) {
             if (_this.stars[i].isRendered) {
                 _this.stars[i].render();
             }
         }
-        for (var i = 0; i < _this.explosionsLength; i++) {
-            if (_this.explosions[i].isRendered) {
-                _this.explosions[i].render();
-            }
-        }
-
-        //objects rendering
         for (var i = 0; i < _this.wallsLength; i++) {
             if (_this.walls[i].isRendered) {
                 _this.walls[i].render();
@@ -262,12 +251,15 @@
                 _this.powerups[i].render();
             }
         };
-
         if (_this.player.isRendered) {
             _this.player.render();
         }
+        for (var i = 0; i < _this.explosionsLength; i++) {
+            if (_this.explosions[i].isRendered) {
+                _this.explosions[i].render();
+            }
+        }
 
-        //_this.ctxbg.restore();
         _this.ctxfg.restore();
         _this.ctxgui.restore();
     }
@@ -290,14 +282,12 @@
         for (var i = 0; i < _this.explosionsLength; i++) {
             _this.explosions[i] = new Explosion({
                 index: i,
-                x: _this.utils.Random(0, _this.width),
-                y: _this.utils.Random(0, _this.height),
+                x: 0,
+                y: 0,
                 vx: 0,
                 vy: 0,
-                timeMax: 1
+                timeMax: 0.5
             });
-            //_this.explosions[i].isActive = false;
-            //_this.explosions[i].isRendered = false;
         }
 
         //objects
@@ -394,8 +384,6 @@
         _this.ctxbg.fillStyle = 'black';
         _this.ctxbg.fillRect(0, 0, _this.cbg.width, _this.cbg.height);
 
-        //_this.ctxfg.fillStyle = "rgba(255, 255, 255, 0.5)";
-        //_this.ctxfg.fill();
         _this.ctxfg.fillStyle = "rgba(0, 0, 0, 0.1)";
         _this.ctxfg.fillRect(0, 0, _this.cfg.width, _this.cfg.height);
 
@@ -407,6 +395,36 @@
         _this.ctxPreStar.beginPath();
         _this.ctxPreStar.fillStyle = 'yellow';
         _this.ctxPreStar.fillRect(0, 0, _this.cPreStar.width, _this.cPreStar.height);
+
+
+        //explosions
+        for (var i = 0; i < _this.preExplosionsLength; i++) {
+            _this.cPreExplosions[i] = _this.doc.createElement('canvas');
+            _this.cPreExplosions[i].width = i * 2 + 2;
+            _this.cPreExplosions[i].height = i * 2 + 2;
+            _this.ctxPreExplosions[i] = _this.cPreExplosions[i].getContext('2d');
+
+            _this.ctxPreExplosions[i].beginPath();
+            _this.ctxPreExplosions[i].arc(i + 1, i + 1, i, 0, 2 * Math.PI, false);
+            _this.ctxPreExplosions[i].strokeStyle = 'red';
+            _this.ctxPreExplosions[i].lineWidth = 1;
+            _this.ctxPreExplosions[i].stroke();
+        }
+
+        //asteroids
+        for (var i = 1; i < _this.preAsteroidsLength; i++) {
+            _this.cPreAsteroids[i] = _this.doc.createElement('canvas');
+            _this.cPreAsteroids[i].width = i * 2 + 2;
+            _this.cPreAsteroids[i].height = i * 2 + 2;
+            _this.ctxPreAsteroids[i] = _this.cPreAsteroids[i].getContext('2d');
+
+            _this.ctxPreAsteroids[i].beginPath();
+            _this.ctxPreAsteroids[i].arc(i + 1, i + 1, i, 0, 2 * Math.PI, false);
+            _this.ctxPreAsteroids[i].fillStyle = 'grey';
+            _this.ctxPreAsteroids[i].fill();
+            _this.ctxPreAsteroids[i].strokeStyle = 'white';
+            _this.ctxPreAsteroids[i].stroke();
+        }
 
         //wall
         _this.ctxPreWall.beginPath();
@@ -422,6 +440,22 @@
         _this.ctxPrePlayer.beginPath();
         _this.ctxPrePlayer.fillStyle = 'yellow';
         _this.ctxPrePlayer.fillRect(0, 0, _this.cPrePlayer.width, _this.cPrePlayer.height);
+
+        _this.ctxPreImmortalPlayer.beginPath();
+        _this.ctxPreImmortalPlayer.fillStyle = 'red';
+        _this.ctxPreImmortalPlayer.fillRect(0, 0, _this.cPreImmortalPlayer.width, _this.cPreImmortalPlayer.height);
+
+        //powerups
+        for (var i = 0; i < _this.powerupsLength; i++) {
+            _this.cPrePowerups[i] = _this.doc.createElement('canvas');
+            _this.cPrePowerups[i].width = 10;
+            _this.cPrePowerups[i].height = 10;
+            _this.ctxPrePowerups[i] = _this.cPrePowerups[i].getContext('2d');
+
+            _this.ctxPrePowerups[i].beginPath();
+            _this.ctxPrePowerups[i].fillStyle = 'orange';
+            _this.ctxPrePowerups[i].fillRect(0, 0, _this.cPrePowerups[i].width, _this.cPrePowerups[i].height);
+        }
     }
 
     this.Start = function () {

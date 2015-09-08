@@ -9,18 +9,19 @@
 }
 PowerUp.prototype.update = function () {
     if (this.x < 0 || this.y < 0 || this.y > $.height) {
-        this.isActive = false;
-        this.isRendered = false;
+        this.deactivate();
     }
 
     this.x += this.vx * $.dt;
 }
 PowerUp.prototype.render = function () {
-    $.ctxfg.beginPath();
-    $.ctxfg.fillStyle = "orange";
-    $.ctxfg.fillRect(this.x, this.y, this.width, this.height);
+    $.ctxfg.drawImage($.cPrePowerups[this.index], Math.round(this.x), Math.round(this.y))
 }
 
+PowerUp.prototype.deactivate = function () {
+    this.isActive = false;
+    this.isRendered = false;
+}
 PowerUp.prototype.refresh = function (x, y) {
     this.x = x;
     this.y = y;

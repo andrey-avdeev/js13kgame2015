@@ -8,12 +8,12 @@
     this.isRendered = false;
 }
 Asteroid.prototype.update = function () {
+    //out of bounds
     if (!this.isRendered && (this.x - this.radius) <= $.width) {
         this.isRendered = true;
     }
-    if (this.x + this.radius <= 0) {
-        this.isRendered = false;
-        this.isActive = false;
+    if (this.x + this.radius <= 0 || this.y + this.radius < 0 || this.y - this.radius > $.height) {
+        this.deactivate();
     }
 
     //collisions
@@ -26,29 +26,22 @@ Asteroid.prototype.update = function () {
                 this.y = $.walls[i].y - this.radius;
                 this.vy = 0;
             }
-            //return true;
         }
     }
-    //for (var i = 0; i < $.asteroidsLength; i++) {
-    //    if ($.utils.IsCirclesCollides(this.x, this.y, this.radius, $.asteroids[i].x, $.asteroids[i].y, $.asteroids[i].radius)) {
-    //        //return true;
-    //    }
-    //}
-
+    //update position
     this.x += this.vx * $.dt;
     this.y += ($.g * $.dt * $.dt / 2) + this.vy * $.dt;
 
     this.vy += $.dt * $.g * this.m;
 }
 Asteroid.prototype.render = function () {
-    $.ctxfg.beginPath();
-    $.ctxfg.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-    $.ctxfg.fillStyle = 'grey';
-    $.ctxfg.fill();
-    $.ctxfg.strokeStyle = 'white';
-    $.ctxfg.stroke();
+    $.ctxfg.drawImage($.cPreAsteroids[Math.floor(this.radius)], Math.round(this.x - this.radius), Math.round(this.y - this.radius));
 }
 
+Asteroid.prototype.deactivate = function () {
+    this.isRendered = false;
+    this.isActive = false;
+}
 Asteroid.prototype.refresh = function () {
     var randomRadius = $.utils.Random(1, 10);
 

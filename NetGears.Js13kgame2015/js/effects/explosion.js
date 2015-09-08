@@ -1,40 +1,41 @@
 ﻿function Explosion(params) {
     BaseEffect.call(this, params);
 
-    this.radius = this.time;
+    this.radius = 0;
 
     this.isActive = false;
     this.isRendered = false;
 }
 Explosion.prototype.update = function () {
     if (this.time >= this.timeMax) {
-        this.isActive = false;
-        this.isRendered = false;
+        this.deactivate();
     } else {
         this.time += $.dt;
 
         this.x += this.vx * $.dt;
         this.y += this.vy * $.dt;
 
-        this.radius = this.time * 8;
+        this.radius = this.time * 18;
     }
+    //out of bounds
     if (this.x + this.radius < 0 || this.y + this.radius < 0 || this.y - this.radius > $.height) {
-        this.isActive = false;
-        this.isRendered = false;
+        this.deactivate();
     }
 }
 Explosion.prototype.render = function () {
-    $.ctxfg.beginPath();
-    $.ctxfg.arc(this.x, this.y, Math.round(this.radius), 0, 2 * Math.PI, false);
-    $.ctxfg.strokeStyle = 'red';
-    $.ctxfg.stroke();
+    $.ctxfg.drawImage($.cPreExplosions[Math.floor(this.radius)], Math.round(this.x - this.radius), Math.round(this.y - this.radius));
 }
 
-Explosion.prototype.refresh = function (x,y,vx) {
+Explosion.prototype.deactivate = function () {
+    this.isActive = false;
+    this.isRendered = false;
+}
+Explosion.prototype.refresh = function (x, y, vx) {
     this.x = x;
     this.y = y;
     this.vx = vx;
     this.time = 0;
+    this.radius = 0;
     this.isActive = true;
     this.isRendered = true;
 }

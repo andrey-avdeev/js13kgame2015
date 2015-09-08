@@ -29,12 +29,16 @@
     <Content Include="js\objects\powerup.js" />
     <Content Include="js\objects\wall.js" />
     <Content Include="js\gui.js" />
+    <Content Include="js\settings.js" />
     <Content Include="js\utils.js" />
     <Content Include="js\game.js" />
     <Content Include="js\objects\asteroid.js" />
     <Content Include="js\objects\laserbeam.js" />
     <Content Include="js\objects\player.js" />
     <Content Include="js\sfxr.js" />
+    <Content Include="LICENSE.md" />
+    <Content Include="min.index.html" />
+    <Content Include="README.md" />
     <None Include="Scripts\_references.js" />
     <Content Include="web.config" />
   </ItemGroup>

@@ -26,6 +26,10 @@
                 if ($.player.isActive) {
                     $.g *= -1;
                     $.player.shoot();
+                } else {
+                    if ($.timeNow - $.timeDeath > 1500) {
+                        $.gui.restart();
+                    }
                 }
                 break;
         }
