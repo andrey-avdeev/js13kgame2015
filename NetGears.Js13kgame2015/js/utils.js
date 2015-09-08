@@ -39,4 +39,8 @@
             console.log(e.message);
         }
     }
+
+    this.LevelAsteroids = function () {
+        return Math.min($.levelMinimumAsteroidsLength * $.gui.level, $.asteroidsLength);
+    }
 }

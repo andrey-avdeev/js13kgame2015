@@ -1,10 +1,20 @@
 ﻿function GUI() {
-    this.score = 0;
+    this.score = 1;
     this.ammo = 31;
     this.lives = 3;
+
+    this.level = 1;
 }
 GUI.prototype.update = function () {
     this.score += $.dt;
+
+    if (Math.floor(this.score / 10) >= this.level) {
+        this.level++;
+        $.levelAsteroidsLength = $.utils.LevelAsteroids();
+        if (this.level % 10 == 0) {
+            this.lives++;
+        }
+    }
 }
 GUI.prototype.render = function () {
     //score
@@ -52,16 +62,24 @@ GUI.prototype.render = function () {
         }
     }
 
+    //level
+    $.ctxgui.font = "15px Arial";
+    $.ctxgui.fillStyle = "black";
+    $.ctxgui.textAlign = "left";
+    $.ctxgui.fillText('Level ' + this.level, 10, $.height - 20);
+
     //author
     $.ctxgui.font = "10px Arial";
     $.ctxgui.fillStyle = "silver";
-    $.ctxgui.fillText("Created by Avdeev Andrew for js13kgames 2015", $.width/5, $.height);
+    $.ctxgui.textAlign = "center";
+    $.ctxgui.fillText("Created by Andrew Avdeev for js13kgames 2015", $.width / 5, $.height);
 }
 
 GUI.prototype.restart = function () {
     this.lives = 3;
     this.ammo = 31;
-    this.score = 0;
+    this.score = 1;
+    this.level = 1;
     $.g = 9.8
 
     $.player.refresh();

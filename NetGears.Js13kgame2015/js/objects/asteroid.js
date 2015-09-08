@@ -45,8 +45,11 @@ Asteroid.prototype.deactivate = function () {
 Asteroid.prototype.refresh = function () {
     var randomRadius = $.utils.Random(1, 10);
 
-    this.x = $.width + this.index * 10;
-    this.y = Math.round($.utils.Random(0, $.height));
+    //this.x = $.width + this.index * 10;
+    //this.y = Math.round($.utils.Random(0, $.height));
+    this.x = $.width + $.utils.Random(10, 50);
+    this.y = $.height / 2 + $.utils.Random(-50, 50);
+
     this.radius = randomRadius;
     this.m = Math.round(10 / randomRadius) * 2;
 

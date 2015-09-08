@@ -74,6 +74,10 @@
     //to cover all width of widescreen
     this.wallsLength = Math.round(this.width / this.wallWidth) * 2 + 4;
     this.asteroidsLength = Math.round((70 / 22) * this.wallsLength);
+    console.log(this.asteroidsLength);
+    this.levelMinimumAsteroidsLength = 10;
+    this.levelAsteroidsLength = Math.min(this.levelMinimumAsteroidsLength * this.gui.level, this.asteroidsLength);
+    console.log(this.levelAsteroidsLength);
     this.player = {};
 
     this.stars = new Array(this.starsLength);
@@ -195,7 +199,8 @@
                 _this.walls[i].update();
             }
         }
-        for (var i = 0; i < _this.asteroidsLength; i++) {
+        //for (var i = 0; i < _this.asteroidsLength; i++) {
+        for (var i = 0; i < _this.levelAsteroidsLength; i++) {
             if (_this.asteroids[i].isActive) {
                 _this.asteroids[i].update();
             } else {
@@ -236,7 +241,8 @@
                 _this.walls[i].render();
             }
         };
-        for (var i = 0; i < _this.asteroidsLength; i++) {
+        //for (var i = 0; i < _this.asteroidsLength; i++) {
+        for (var i = 0; i < _this.levelAsteroidsLength; i++) {
             if (_this.asteroids[i].isRendered) {
                 _this.asteroids[i].render();
             }
