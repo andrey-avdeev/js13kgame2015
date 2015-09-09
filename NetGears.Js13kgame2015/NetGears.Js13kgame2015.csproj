@@ -39,6 +39,8 @@
     <Content Include="min.index.html" />
     <Content Include="README.md" />
     <None Include="Scripts\_references.js" />
+    <Content Include="ReGravy_big.jpg" />
+    <Content Include="ReGravy_small.jpg" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
