@@ -1,12 +1,12 @@
 #ReGravy#
 
 ReGravy is a space themed arcade where you must escape asteroids and walls of a lunar cave by reversing gravity vector.
-There is lasergun, of course.
+There is laser gun, of course.
 
 This game was made for [js13kGames](http://js13kgames.com) 2015. The theme of the year was 'reversed'.
 
 #Notes#
-It's my first javascript game. Works fine in Chrome, frame rate is bad in others.
+It's my first javascript game. Works fine in Chrome, frame rate is worse in others.
 
 By the way, it works fine in Chrome mobile.
 
@@ -26,11 +26,11 @@ By the way, it works fine in Chrome mobile.
 **Score:** 1 per second left + powerups
 
 #Controls#
-**Reverse gravity** 'R'/touch
+**Reverse gravity:** 'R'/touch
 
-**Keep gravity reversed** Hold 'R'/touched
+**Keep gravity reversed:** Hold 'R'/touched
 
-**Shoot** Press 'R'/touch or realease 'R'/untouch
+**Shoot:** Press 'R'/touch or realease 'R'/untouch
 
 #Powerups#
 **Orange:** additional 10 points
@@ -40,7 +40,7 @@ By the way, it works fine in Chrome mobile.
 **Purple:** blown up all asteroids
 
 #Credits#
-**Created By:** [@Andrew Avdeev](https://twitter.com/_AvdeevAndrew)  
+**Created By:** [@Andrew Avdeev](https://twitter.com/_AvdeevAndrew), [homepage] (http://netgears.ru/) 
 
 **Special Thanks:** My wife Ann for supporting me and my friend Antony, who told me about this contest
 
