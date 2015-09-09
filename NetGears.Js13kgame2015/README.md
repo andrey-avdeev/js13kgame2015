@@ -42,7 +42,7 @@ By the way, it works fine in Chrome mobile.
 #Credits#
 **Created By:** [@Andrew Avdeev](https://twitter.com/_AvdeevAndrew), [homepage] (http://netgears.ru/) 
 
-**Special Thanks:** My wife Ann for supporting me and my friend Antony, who told me about this contest
+**Special Thanks:** My wife Ann for supporting me and my friend [@Antony](https://twitter.com/redsparkzone), who told me about this contest
 
 **Audio Processing:** [JSFXR](https://github.com/mneubrand/jsfxr) by [@markusneubrand](https://twitter.com/markusneubrand)  
 
