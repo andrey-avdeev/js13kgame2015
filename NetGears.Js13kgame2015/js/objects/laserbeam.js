@@ -74,7 +74,10 @@ LaserBeam.prototype.deactivate = function () {
     this.isActive = false;
     this.isRendered = false;
 
-    $.gui.ammo++;
+    if ($.gui.ammo < $.laserbeamsLength) {
+        $.gui.ammo++;
+    }
+
 }
 LaserBeam.prototype.refresh = function (x, y) {
     this.x = x;

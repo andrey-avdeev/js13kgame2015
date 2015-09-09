@@ -12,7 +12,7 @@ By the way, it works fine in Chrome mobile.
 
 **Minimal screen requirements:** 400x300 WxH
 
-**Final Size:** 7 197 bytes
+**Final Size:** 7 191 bytes
 
 #Features#
 **Multiple levels:** new one per 10 points
