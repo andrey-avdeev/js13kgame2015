@@ -11,7 +11,7 @@
 Player.prototype.update = function () {
     //check immortality
     if (this.isImmortal) {
-        if ($.timeNow - $.timeImmortality > 2000) {
+        if ($.timeNow - $.timeImmortality > 3000) {
             this.isImmortal = false;
         }
     }
@@ -31,7 +31,7 @@ Player.prototype.update = function () {
             }
         }
     }
-    for (var i = 0; i < $.asteroidsLength; i++) {
+    for (var i = 0; i < $.levelAsteroidsLength; i++) {
         if ($.asteroids[i].isActive) {
             if ($.utils.IsRectangleCircleCollides(this.x, this.y, this.width, this.height, $.asteroids[i].x, $.asteroids[i].y, $.asteroids[i].radius)) {
                 $.asteroids[i].deactivate();
@@ -48,7 +48,21 @@ Player.prototype.update = function () {
             if ($.utils.IsRectanglesCollides(this.x, this.y, this.width, this.height, $.powerups[i].x, $.powerups[i].y, $.powerups[i].width, $.powerups[i].height)) {
                 $.powerups[i].deactivate();
 
-                $.gui.score += 10;
+                if (i == 0 || i == 1) {
+                    $.gui.score += 10;
+                }
+                if (i == 2) {
+                    $.timeImmortality = $.timeNow;
+                    this.isImmortal = true;
+                }
+                if (i == 3) {
+                    for (var k = 0; k < $.levelAsteroidsLength; k++) {
+                        if ($.asteroids[k].isActive && $.asteroids[k].isRendered) {
+                            $.asteroids[k].deactivate();
+                            $.explosions[$.asteroids[k].index].refresh($.asteroids[k].x, $.asteroids[k].y, $.asteroids[k].vx);
+                        }
+                    }
+                }
 
                 $.utils.PlaySound([1, , 0.0714, , 0.4326, 0.3646, , 0.4309, , , , , , , , 0.5024, , , 1, , , , , 0.5]);
             }

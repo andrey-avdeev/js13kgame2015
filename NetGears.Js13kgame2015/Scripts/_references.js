@@ -15,4 +15,3 @@
 /// <reference path="../js/utils.js" />
 /// <reference path="../js/controls/touchpad.js" />
 /// <reference path="../js/sfxr.js" />
-/// <reference path="../js/settings.js" />

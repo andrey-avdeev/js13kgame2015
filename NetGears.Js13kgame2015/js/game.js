@@ -3,9 +3,6 @@
     this.doc = document;
     this.canvasContainer = this.doc.getElementById('canvas-container');
 
-    //game main settings
-    //this.settings = new Settings();
-
     //keyboard initialization
     this.keyboard = new Keyboard();
     this.doc.addEventListener('keydown', this.keyboard.onKeyDown);
@@ -29,6 +26,9 @@
     this.timeElapsed = 0;
     this.timeDeath = -1;
     this.timeImmortality = -1;
+
+    this.timePowerupImmortality = GetTimeStamp();
+    this.timePowerupBlow = GetTimeStamp();
 
     //physics parameters
     this.g = 9.8;
@@ -64,20 +64,21 @@
     //game arrays
     //effects
     this.starsLength = 100;
-    this.explosionsLength = 31;
+
 
     //objects
-
-    //31-st explosion for player
-    this.laserbeamsLength = this.explosionsLength - 1;
-    this.powerupsLength = 5;
+    this.laserbeamsLength = this.gui.ammo;
+    this.powerupsLength = 4;
     //to cover all width of widescreen
     this.wallsLength = Math.round(this.width / this.wallWidth) * 2 + 4;
     this.asteroidsLength = Math.round((70 / 22) * this.wallsLength);
-    console.log(this.asteroidsLength);
+
+    //+1 explosion for player
+    this.explosionsLength = this.asteroidsLength + 1;
+
     this.levelMinimumAsteroidsLength = 10;
     this.levelAsteroidsLength = Math.min(this.levelMinimumAsteroidsLength * this.gui.level, this.asteroidsLength);
-    console.log(this.levelAsteroidsLength);
+
     this.player = {};
 
     this.stars = new Array(this.starsLength);
@@ -373,7 +374,7 @@
 
         //player
         _this.player = new Player({
-            index: 30,
+            index: _this.explosionsLength - 1,
             x: 0 + 50,
             y: _this.height / 2,
             vx: 0,
@@ -453,13 +454,22 @@
 
         //powerups
         for (var i = 0; i < _this.powerupsLength; i++) {
+
             _this.cPrePowerups[i] = _this.doc.createElement('canvas');
             _this.cPrePowerups[i].width = 10;
             _this.cPrePowerups[i].height = 10;
             _this.ctxPrePowerups[i] = _this.cPrePowerups[i].getContext('2d');
 
             _this.ctxPrePowerups[i].beginPath();
-            _this.ctxPrePowerups[i].fillStyle = 'orange';
+            if (i == 0 || i == 1) {
+                _this.ctxPrePowerups[i].fillStyle = 'orange';
+            }
+            if (i == 2) {
+                _this.ctxPrePowerups[i].fillStyle = 'red';
+            }
+            if (i == 3) {
+                _this.ctxPrePowerups[i].fillStyle = 'purple';
+            }
             _this.ctxPrePowerups[i].fillRect(0, 0, _this.cPrePowerups[i].width, _this.cPrePowerups[i].height);
         }
     }

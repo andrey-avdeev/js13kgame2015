@@ -1,6 +1,6 @@
 ﻿function GUI() {
     this.score = 1;
-    this.ammo = 31;
+    this.ammo = 30;
     this.lives = 3;
 
     this.level = 1;
@@ -8,7 +8,7 @@
 GUI.prototype.update = function () {
     this.score += $.dt;
 
-    if (Math.floor(this.score / 10) >= this.level) {
+    if (Math.floor(this.score / 10) > this.level) {
         this.level++;
         $.levelAsteroidsLength = $.utils.LevelAsteroids();
         if (this.level % 10 == 0) {
@@ -40,6 +40,8 @@ GUI.prototype.render = function () {
     $.ctxgui.lineTo(10, startHeight + this.ammo * 5);
     $.ctxgui.stroke();
 
+    console.log(this.ammo);
+
     //lives
     if (this.lives > 0) {
         for (var i = 0; i < this.lives; i++) {
@@ -55,6 +57,20 @@ GUI.prototype.render = function () {
         $.ctxgui.font = "25px Arial";
         $.ctxgui.fillStyle = "white";
         $.ctxgui.fillText("Game Over", $.width / 2 - 50, $.height / 2 - 25);
+
+        var bestScore = this.getCookie("ReGravyBestScore");
+        if (bestScore != null) {
+            $.ctxgui.font = "10px Arial";
+            if (this.score > bestScore) {
+                this.setCookie("ReGravyBestScore", this.score);
+                $.ctxgui.fillText("Best score : " + Math.floor(this.score), $.width / 2 - 50, $.height / 2 - 10);
+            } else {
+                $.ctxgui.fillText("Best score : " + Math.floor(bestScore), $.width / 2 - 50, $.height / 2 - 10);
+            }
+        } else {
+            this.setCookie("ReGravyBestScore", this.score);
+        }
+
 
         if ($.timeNow - $.timeDeath > 1500) {
             $.ctxgui.font = "18px Arial";
@@ -77,10 +93,52 @@ GUI.prototype.render = function () {
 
 GUI.prototype.restart = function () {
     this.lives = 3;
-    this.ammo = 31;
+
+    for (var i = 0; i < $.laserbeamsLength; i++) {
+        $.laserbeams[i].deactivate();
+    }
+
+    this.ammo = 30;
+
     this.score = 1;
     this.level = 1;
+    $.levelAsteroidsLength = $.utils.LevelAsteroids();
+
+    for (var i = $.levelAsteroidsLength; i < $.asteroidsLength; i++) {
+        $.asteroids[i].refresh();
+    }
+
+    $.timePowerupBlow = $.timeNow;
+    $.timePowerupImmortality = $.timeNow;
+
     $.g = 9.8
 
     $.player.refresh();
+}
+
+GUI.prototype.setCookie = function (name, value, expires, path, domain, secure) {
+    $.doc.cookie = name + "=" + escape(value) +
+      ((expires) ? "; expires=" + expires : "") +
+      ((path) ? "; path=" + path : "") +
+      ((domain) ? "; domain=" + domain : "") +
+      ((secure) ? "; secure" : "");
+}
+GUI.prototype.getCookie = function (name) {
+    var cookie = " " + $.doc.cookie;
+    var search = " " + name + "=";
+    var setStr = null;
+    var offset = 0;
+    var end = 0;
+    if (cookie.length > 0) {
+        offset = cookie.indexOf(search);
+        if (offset != -1) {
+            offset += search.length;
+            end = cookie.indexOf(";", offset)
+            if (end == -1) {
+                end = cookie.length;
+            }
+            setStr = unescape(cookie.substring(offset, end));
+        }
+    }
+    return (setStr);
 }

@@ -5,4 +5,3 @@ window.onload = function () {
     $ = new Game();
     $.Start();
 }
-
