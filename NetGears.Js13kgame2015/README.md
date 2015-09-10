@@ -40,7 +40,7 @@ By the way, it works fine in Chrome mobile.
 **Purple:** blown up all asteroids
 
 #Credits#
-**Created By:** [@Andrew Avdeev](https://twitter.com/_AvdeevAndrew), [homepage] (http://netgears.ru/) 
+**Created By:** [@Andrew Avdeev](https://twitter.com/_AvdeevAndrew), [homepage](http://netgears.ru) 
 
 **Special Thanks:** My wife Ann for supporting me and my friend [@Antony](https://twitter.com/redsparkzone), who told me about this contest
 
