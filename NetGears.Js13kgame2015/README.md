@@ -1,5 +1,7 @@
 #ReGravy#
 
+![ReGravy Gameplay](http://js13kgames.com/games/regravy/__big.jpg)
+
 ReGravy is a space themed arcade where you must escape asteroids and walls of a lunar cave by reversing gravity vector.
 There is laser gun, of course.
 
